@@ -26,48 +26,26 @@
 
 \hfill%
 \begin{minipage}{0.45\textwidth}
-  \boxentry{<%= bdgettext("invoice", "Place of issue") %>}{Warszawa}
-  \boxentry{<%= bdgettext("invoice", "Date of issue") %>}{30-09-2022}
-  \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{30-09-2022}
+  \boxentry{<%= bdgettext("invoice", "Place of issue") %>}{<%= @invoice.place_of_issue %>}
+  \boxentry{<%= bdgettext("invoice", "Date of issue") %>}{<%= @invoice.date_of_issue %>}
+  \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= @invoice.date_of_sale %>}
 \end{minipage}
 
-\begin{minipage}[b]{0.46\textwidth}
-  \boxheader{\bfseries <%= bdgettext("invoice", "Seller") %>}
-  \begin{minipage}{\textwidth}
-    \vspace{3pt}
-    ACME Corp.\\
-    <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
-    42 Infinity Drive\\
-    12312 Someplace
-  \end{minipage}
-\end{minipage}\hfill%
-\begin{minipage}[b]{0.46\textwidth}
-  \boxheader{\bfseries <%= bdgettext("invoice", "Buyer") %>}
-  \begin{minipage}{\textwidth}
-    \vspace{3pt}
-    ACME Corp.\\
-    <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
-    42 Infinity Drive\\
-    12312 Someplace
-  \end{minipage}
-\end{minipage}
+<%= render("_company.tex", company: @seller, header: bdgettext("invoice", "Seller"), locale: @locale) %>%
+\hfill%
+<%= render("_company.tex", company: @buyer, header: bdgettext("invoice", "Buyer"), locale: @locale) %>
 
 \vspace{1em}
 
 \begin{center}
-{\LARGE\bfseries <%= ldgettext(@first_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: "01/09/2022"}) %>}
+{\LARGE\bfseries <%= ldgettext(@first_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: @invoice.invoice_no}) %>}
 \end{center}
 
 <%= if @second_locale do %>
   \begin{center}
-  {\large\bfseries <%= ldgettext(:pl, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: "01/09/2022"}) %>}
+  {\large\bfseries <%= ldgettext(@second_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: @invoice.invoice_no}) %>}
   \end{center}
 <% end %>
-
-<% data = [
-%{description: "Software-Entwicklung-Leistungen, Zeitraum: 01.09.2022-30.09.2022 / Usługi związane z tworzeniem oprogramowania w okresie 01.09.2022-30.09.2022",
-quantity: 1, unit: nil, total_net_price: 5833.33, vat_rate: "np.", vat_amount: 0, total_gross_price: 5833.33, unit_net_price: 5833.33} 
-] %>
 
 \begin{tabularx}{\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
   \hline
@@ -82,16 +60,16 @@ quantity: 1, unit: nil, total_net_price: 5833.33, vat_rate: "np.", vat_amount: 0
     <%= table_header bdgettext("invoice", "VAT amount", %{}, "\\\\") %> &
     <%= table_header bdgettext("invoice", "Total gross price", %{}, "\\\\") %> \\[3pt]
 
-    <%= for {row, index} <- Enum.with_index(data) do %>
+    <%= for {row, index} <- Enum.with_index(@invoice.line_items) do %>
       \multicolumn{1}{|c|}{\small <%= index + 1 %>} &
       \multicolumn{1}{>{\raggedright\arraybackslash}X|}{\small <%= row.description %>} &
       \multicolumn{1}{c|}{\small <%= row.unit %>} &
       \multicolumn{1}{c|}{\small <%= row.quantity %>} &
       \multicolumn{1}{c|}{\small <%= row.unit_net_price %>} &
-      \small <%= row.total_net_price %> &
+      \small <%= LineItem.total_net_price(row) %> &
       \small <%= row.vat_rate %> &
-      \small <%= row.vat_amount %> &
-      \small <%= row.total_gross_price %> \\
+      \small <%= LineItem.vat_amount(row) %> &
+      \small <%= LineItem.total_gross_price(row) %> \\
       \hline
     <% end %>
 
