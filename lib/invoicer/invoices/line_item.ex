@@ -2,17 +2,14 @@ defmodule Invoicer.Invoices.LineItem do
   use Ecto.Schema
   import Ecto.Changeset
 
-  import EctoEnum
-
-  defenum(VatRate, :vat_rate, ["np.", "zw.", "o.o.", "0%", "5%", "7%", "8%", "23%"])
-
   schema "line_items" do
     field :description, :string
+    field :position, :integer
     field :quantity, :decimal
     field :unit, :string
     field :unit_net_price, :decimal
-    field :vat_rate, :integer
-    field :invoice_id, :id
+    field :vat_rate, Invoicer.Invoices.LineItem.VatRate
+    belongs_to :invoice, Invoicer.Invoices.Invoice
 
     timestamps()
   end
