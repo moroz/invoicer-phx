@@ -6,6 +6,7 @@
 \usepackage{makecell,tabularx,colortbl}
 \definecolor{BoxBG}{HTML}{DDDDDD}
 \setmainfont[Mapping=tex-text]{IBM Plex Sans}
+\usepackage{booktabs}
 
 \newcommand{\boxheader}[1]{%
 \colorbox{BoxBG}{%
@@ -30,19 +31,25 @@
   \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{30-09-2022}
 \end{minipage}
 
-\begin{minipage}{0.46\textwidth}
-  \boxheader{<%= bdgettext("invoice", "Seller") %>}
-  ACME Corp.\\
-  <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
-  42 Infinity Drive\\
-  12312 Someplace
+\begin{minipage}[b]{0.46\textwidth}
+  \boxheader{\bfseries <%= bdgettext("invoice", "Seller") %>}
+  \begin{minipage}{\textwidth}
+    \vspace{3pt}
+    ACME Corp.\\
+    <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
+    42 Infinity Drive\\
+    12312 Someplace
+  \end{minipage}
 \end{minipage}\hfill%
-\begin{minipage}{0.46\textwidth}
-  \boxheader{<%= bdgettext("invoice", "Buyer") %>}
-  ACME Corp.\\
-  <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
-  42 Infinity Drive\\
-  12312 Someplace
+\begin{minipage}[b]{0.46\textwidth}
+  \boxheader{\bfseries <%= bdgettext("invoice", "Buyer") %>}
+  \begin{minipage}{\textwidth}
+    \vspace{3pt}
+    ACME Corp.\\
+    <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
+    42 Infinity Drive\\
+    12312 Someplace
+  \end{minipage}
 \end{minipage}
 
 \vspace{1em}
@@ -62,7 +69,7 @@
 quantity: 1, unit: nil, total_net_price: 5833.33, vat_rate: "np.", vat_amount: 0, total_gross_price: 5833.33, unit_net_price: 5833.33} 
 ] %>
 
-\begin{tabularx}{\textwidth}{ c  X  c  c  c | c | c | c | c |} 
+\begin{tabularx}{\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
   \hline
   \rowcolor{BoxBG}
     \multicolumn{1}{|c|}{\thead{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
