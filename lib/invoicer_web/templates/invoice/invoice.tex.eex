@@ -1,6 +1,31 @@
 \documentclass{article}
+\usepackage{fontspec,setspace}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=2cm]{geometry}
+\definecolor{BoxBG}{HTML}{DDDDDD}
+\setmainfont[Mapping=tex-text]{IBM Plex Sans}
+
+\newcommand{\boxheader}[1]{%
+\colorbox{BoxBG}{%
+  \parbox{\textwidth}{%
+  \centering #1}}}
+
+\newcommand{\boxentry}[2]{%
+  \boxheader{#1}
+  \colorbox{White}{%
+  \parbox{\textwidth}{%
+    \centering\bfseries #2}
+  }\\[3pt]}
 
 \begin{document}
-Hello world!
+
+\hfill%
+\begin{minipage}{0.45\textwidth}
+  \boxentry{Miejsce wystawienia}{Warszawa}
+  \boxentry{Data wystawienia}{30-09-2022}
+  \boxentry{Data sprzedaży}{30-09-2022}
+\end{minipage}
+
 \end{document}
 
