@@ -27,5 +27,20 @@
   \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{30-09-2022}
 \end{minipage}
 
+\begin{minipage}{0.46\textwidth}
+  \boxheader{<%= bdgettext("invoice", "Seller") %>}
+  ACME Corp.\\
+  <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
+  42 Infinity Drive\\
+  12312 Someplace
+\end{minipage}\hfill%
+\begin{minipage}{0.46\textwidth}
+  \boxheader{<%= bdgettext("invoice", "Buyer") %>}
+  ACME Corp.\\
+  <%= bdgettext("invoice", "VAT ID") %>: PL1234567890\\
+  42 Infinity Drive\\
+  12312 Someplace
+\end{minipage}
+
 \end{document}
 

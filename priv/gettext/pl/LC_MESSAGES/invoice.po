@@ -25,3 +25,19 @@ msgstr "Data sprzedaży"
 #, elixir-autogen, elixir-format
 msgid "Place of issue"
 msgstr "Miejse wystawienia"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:38
+#, elixir-autogen, elixir-format
+msgid "Buyer"
+msgstr "Nabywca"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:31
+#, elixir-autogen, elixir-format
+msgid "Seller"
+msgstr "Sprzedawca"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:33
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:40
+#, elixir-autogen, elixir-format
+msgid "VAT ID"
+msgstr "NIP"
