@@ -1,10 +1,9 @@
 defmodule InvoicerWeb.InvoiceTestController do
   use InvoicerWeb, :controller
+  alias InvoicerWeb.InvoiceDocument
 
   def index(conn, _params) do
-    {:ok, pdf} =
-      InvoicerWeb.InvoiceDocument.new()
-      |> ElixirLatex.Job.render("invoice.tex", %{locale: [:pl, :de]})
+    {:ok, pdf} = InvoiceDocument.generate([:de, :pl])
 
     conn
     |> put_resp_header("content-disposition", "inline")

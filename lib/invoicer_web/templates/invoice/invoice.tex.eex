@@ -42,5 +42,17 @@
   12312 Someplace
 \end{minipage}
 
+\vspace{1em}
+
+\begin{center}
+{\LARGE\bfseries <%= ldgettext(@first_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: "01/09/2022"}) %>}
+\end{center}
+
+<%= if @second_locale do %>
+  \begin{center}
+  {\large\bfseries <%= ldgettext(:pl, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: "01/09/2022"}) %>}
+  \end{center}
+<% end %>
+
 \end{document}
 

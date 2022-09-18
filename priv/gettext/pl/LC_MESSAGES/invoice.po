@@ -41,3 +41,9 @@ msgstr "Sprzedawca"
 #, elixir-autogen, elixir-format
 msgid "VAT ID"
 msgstr "NIP"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:48
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:53
+#, elixir-autogen, elixir-format
+msgid "Invoice No. %{invoice_no}"
+msgstr "Faktura VAT %{invoice_no}"
