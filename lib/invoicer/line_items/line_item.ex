@@ -1,7 +1,7 @@
-defmodule Invoicer.Invoices.LineItem do
+defmodule Invoicer.LineItems.LineItem do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Invoicer.Invoices.LineItem.VatRate
+  alias Invoicer.LineItems.LineItem.VatRate
 
   schema "line_items" do
     field :description, :string

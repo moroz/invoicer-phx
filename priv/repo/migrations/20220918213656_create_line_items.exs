@@ -2,7 +2,7 @@ defmodule Invoicer.Repo.Migrations.CreateLineItems do
   use Ecto.Migration
 
   def change do
-    Invoicer.Invoices.LineItem.VatRate.create_type()
+    Invoicer.LineItems.LineItem.VatRate.create_type()
 
     create table(:line_items) do
       add :position, :integer, null: false

@@ -16,8 +16,8 @@ alias Invoicer.Companies
 alias Invoicer.Companies.Company
 alias Invoicer.Invoices
 alias Invoicer.Invoices.Invoice
-alias Invoicer.Invoices.LineItem
-alias Invoicer.Invoices.LineItem.VatRate
+alias Invoicer.LineItems.LineItem
+alias Invoicer.LineItems.LineItem.VatRate
 
 Repo.transaction(fn ->
   Repo.delete_all(LineItem)
