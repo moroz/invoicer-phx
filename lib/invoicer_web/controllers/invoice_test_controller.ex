@@ -2,8 +2,11 @@ defmodule InvoicerWeb.InvoiceTestController do
   use InvoicerWeb, :controller
   alias InvoicerWeb.InvoiceDocument
 
+  alias Invoicer.Invoices
+
   def index(conn, _params) do
-    {:ok, pdf} = InvoiceDocument.generate([:de, :pl])
+    invoice = Invoices.get_last()
+    {:ok, pdf} = InvoiceDocument.generate(invoice, [:de, :pl])
 
     conn
     |> put_resp_header("content-disposition", "inline")

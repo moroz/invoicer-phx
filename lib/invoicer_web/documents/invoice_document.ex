@@ -5,8 +5,12 @@ defmodule InvoicerWeb.InvoiceDocument do
 
   alias ElixirLatex.Job
 
-  def generate(locales) do
+  def generate(invoice, locales) do
     new()
+    |> assign(:invoice, invoice)
+    |> assign(:seller, invoice.seller)
+    |> assign(:buyer, invoice.buyer)
+    |> assign(:line_items, invoice.line_items)
     |> assign_locale(locales)
     |> Job.render("invoice.tex")
   end

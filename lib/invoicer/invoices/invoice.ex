@@ -2,6 +2,7 @@ defmodule Invoicer.Invoices.Invoice do
   use Ecto.Schema
   import Ecto.Changeset
   alias Invoicer.Companies.Company
+  alias Invoicer.LineItems.LineItem
 
   schema "invoices" do
     field :date_of_issue, :date
@@ -11,6 +12,7 @@ defmodule Invoicer.Invoices.Invoice do
     field :place_of_issue, :string
     belongs_to :seller, Company
     belongs_to :buyer, Company
+    has_many :line_items, LineItem, on_replace: :delete
 
     timestamps()
   end
