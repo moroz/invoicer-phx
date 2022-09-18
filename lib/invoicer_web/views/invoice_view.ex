@@ -6,4 +6,11 @@ defmodule InvoicerWeb.InvoiceView do
   defmacro table_header(content) do
     ["\\thead{", content, "}"]
   end
+
+  def format_price(price) do
+    price
+    |> Decimal.round(2)
+    |> Decimal.to_string()
+    |> String.replace(".", ",")
+  end
 end

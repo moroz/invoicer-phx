@@ -5,7 +5,7 @@
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{makecell,tabularx,colortbl}
 \definecolor{BoxBG}{HTML}{DDDDDD}
-\setmainfont[Mapping=tex-text]{IBM Plex Sans}
+\setmainfont[Mapping=tex-text]{PT Sans}
 \usepackage{booktabs}
 
 \newcommand{\boxheader}[1]{%
@@ -65,11 +65,11 @@
       \multicolumn{1}{>{\raggedright\arraybackslash}X|}{\small <%= row.description %>} &
       \multicolumn{1}{c|}{\small <%= row.unit %>} &
       \multicolumn{1}{c|}{\small <%= row.quantity %>} &
-      \multicolumn{1}{c|}{\small <%= row.unit_net_price %>} &
-      \small <%= LineItem.total_net_price(row) %> &
+      \multicolumn{1}{c|}{\small <%= format_price row.unit_net_price %>} &
+      \small <%= format_price LineItem.total_net_price(row) %> &
       \small <%= row.vat_rate %> &
-      \small <%= LineItem.vat_amount(row) %> &
-      \small <%= LineItem.total_gross_price(row) %> \\
+      \small <%= format_price LineItem.vat_amount(row) %> &
+      \small <%= format_price LineItem.total_gross_price(row) %> \\
       \hline
     <% end %>
 
