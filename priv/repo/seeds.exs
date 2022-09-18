@@ -16,8 +16,8 @@ alias Invoicer.Companies
 alias Invoicer.Companies.Company
 alias Invoicer.Invoices
 alias Invoicer.Invoices.Invoice
+alias Invoicer.LineItems
 alias Invoicer.LineItems.LineItem
-alias Invoicer.LineItems.LineItem.VatRate
 
 Repo.transaction(fn ->
   Repo.delete_all(LineItem)
@@ -45,6 +45,15 @@ Repo.transaction(fn ->
   invoice_no = DateTime.utc_now() |> Calendar.strftime("01/%m/%Y")
   date = Timex.today() |> Timex.end_of_month()
 
+  period_start = Timex.today() |> Timex.beginning_of_month()
+
+  period_formatted =
+    [
+      Calendar.strftime(period_start, "%d.%m.%Y"),
+      Calendar.strftime(date, "%d.%m.%Y")
+    ]
+    |> Enum.join("--")
+
   {:ok, invoice} =
     Invoices.create_invoice(%{
       buyer_id: buyer.id,
@@ -55,4 +64,12 @@ Repo.transaction(fn ->
       place_of_issue: seller.city,
       gross_total: 0
     })
+
+  LineItems.create_line_item(%{
+    invoice_id: invoice.id,
+    description: "Software development services, period: #{period_formatted}",
+    unit_net_price: Decimal.new("5833.33"),
+    vat_rate: "np.",
+    position: 1
+  })
 end)
