@@ -47,7 +47,8 @@ defmodule Invoicer.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:elixir_latex, path: "../elixir_latex"}
+      {:elixir_latex, path: "../elixir_latex"},
+      {:ecto_enum, "~> 1.4"}
     ]
   end
 
