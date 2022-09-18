@@ -22,9 +22,9 @@
 
 \hfill%
 \begin{minipage}{0.45\textwidth}
-  \boxentry{Miejsce wystawienia}{Warszawa}
-  \boxentry{Data wystawienia}{30-09-2022}
-  \boxentry{Data sprzedaży}{30-09-2022}
+  \boxentry{<%= bdgettext("invoice", "Place of issue") %>}{Warszawa}
+  \boxentry{<%= bdgettext("invoice", "Date of issue") %>}{30-09-2022}
+  \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{30-09-2022}
 \end{minipage}
 
 \end{document}
