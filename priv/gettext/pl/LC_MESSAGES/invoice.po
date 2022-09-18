@@ -1,0 +1,27 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pl\n"
+"Plural-Forms: nplurals=3\n"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:26
+#, elixir-autogen, elixir-format
+msgid "Date of issue"
+msgstr "Data wystawienia"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:27
+#, elixir-autogen, elixir-format
+msgid "Date of sale"
+msgstr "Data sprzedaży"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:25
+#, elixir-autogen, elixir-format
+msgid "Place of issue"
+msgstr "Miejse wystawienia"
