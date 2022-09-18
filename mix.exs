@@ -48,7 +48,9 @@ defmodule Invoicer.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:elixir_latex, path: "../elixir_latex"},
-      {:ecto_enum, "~> 1.4"}
+      {:ecto_enum, "~> 1.4"},
+      {:timex, "~> 3.7"},
+      {:hackney, "~> 1.18"}
     ]
   end
 
@@ -63,6 +65,7 @@ defmodule Invoicer.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.seed": "run priv/repo/seeds.exs",
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       genlocales: [
         "gettext.extract",
