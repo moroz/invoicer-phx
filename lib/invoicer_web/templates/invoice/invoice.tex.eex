@@ -2,7 +2,8 @@
 \usepackage{fontspec,setspace}
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
-\usepackage[margin=2cm]{geometry}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{makecell,tabularx,colortbl}
 \definecolor{BoxBG}{HTML}{DDDDDD}
 \setmainfont[Mapping=tex-text]{IBM Plex Sans}
 
@@ -17,6 +18,8 @@
   \parbox{\textwidth}{%
     \centering\bfseries #2}
   }\\[3pt]}
+
+\renewcommand\theadfont{\bfseries\footnotesize}
 
 \begin{document}
 
@@ -53,6 +56,42 @@
   {\large\bfseries <%= ldgettext(:pl, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: "01/09/2022"}) %>}
   \end{center}
 <% end %>
+
+<% data = [
+%{description: "Software-Entwicklung-Leistungen, Zeitraum: 01.09.2022-30.09.2022 / Usługi związane z tworzeniem oprogramowania w okresie 01.09.2022-30.09.2022",
+quantity: 1, unit: nil, total_net_price: 5833.33, vat_rate: "np.", vat_amount: 0, total_gross_price: 5833.33, unit_net_price: 5833.33} 
+] %>
+
+\begin{tabularx}{\textwidth}{ c  X  c  c  c | c | c | c | c |} 
+  \hline
+  \rowcolor{BoxBG}
+    \multicolumn{1}{|c|}{\thead{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
+    \multicolumn{1}{X|}{\thead{<%= bdgettext("invoice", "Description", %{}, "\\\\") %>}} &
+    \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit", %{}, "\\\\") %>}} &
+    \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Quantity", %{}, "\\\\") %>}} &
+    \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit net price", %{}, "\\\\") %>}} &
+    <%= table_header bdgettext("invoice", "Total net price", %{}, "\\\\") %> &
+    <%= table_header bdgettext("invoice", "VAT rate", %{}, "\\\\") %> &
+    <%= table_header bdgettext("invoice", "VAT amount", %{}, "\\\\") %> &
+    <%= table_header bdgettext("invoice", "Total gross price", %{}, "\\\\") %> \\[3pt]
+
+    <%= for {row, index} <- Enum.with_index(data) do %>
+      \multicolumn{1}{|c|}{\small <%= index + 1 %>} &
+      \multicolumn{1}{>{\raggedright\arraybackslash}X|}{\small <%= row.description %>} &
+      \multicolumn{1}{c|}{\small <%= row.unit %>} &
+      \multicolumn{1}{c|}{\small <%= row.quantity %>} &
+      \multicolumn{1}{c|}{\small <%= row.unit_net_price %>} &
+      \small <%= row.total_net_price %> &
+      \small <%= row.vat_rate %> &
+      \small <%= row.vat_amount %> &
+      \small <%= row.total_gross_price %> \\
+      \hline
+    <% end %>
+
+    \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Including") %>} & & & & \\ \cline{6-9}
+    \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Total") %>} & & & & \\ \cline{6-9}
+
+\end{tabularx}
 
 \end{document}
 

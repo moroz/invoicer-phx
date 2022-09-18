@@ -1,9 +1,9 @@
 defmodule InvoicerWeb.TranslationHelpers do
-  import InvoicerWeb.Gettext
-
   @context InvoicerWeb.Gettext
 
   defmacro bdgettext(domain, key, bindings \\ %{}, separator \\ "/") do
+    bindings = if bindings == %{}, do: Macro.escape(bindings), else: bindings
+
     quote do
       locales = var!(assigns)[:locale]
       InvoicerWeb.Gettext.dgettext_noop(unquote(domain), unquote(key))
@@ -13,7 +13,7 @@ defmodule InvoicerWeb.TranslationHelpers do
           locale,
           unquote(domain),
           unquote(key),
-          unquote(Macro.escape(bindings))
+          unquote(bindings)
         )
       end)
     end

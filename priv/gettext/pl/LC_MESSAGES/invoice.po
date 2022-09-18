@@ -11,39 +11,84 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3\n"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:26
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:27
 #, elixir-autogen, elixir-format
 msgid "Date of issue"
 msgstr "Data wystawienia"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:27
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:28
 #, elixir-autogen, elixir-format
 msgid "Date of sale"
 msgstr "Data sprzedaży"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:25
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:26
 #, elixir-autogen, elixir-format
 msgid "Place of issue"
 msgstr "Miejse wystawienia"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:38
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:39
 #, elixir-autogen, elixir-format
 msgid "Buyer"
 msgstr "Nabywca"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:31
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:32
 #, elixir-autogen, elixir-format
 msgid "Seller"
 msgstr "Sprzedawca"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:33
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:40
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:34
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:41
 #, elixir-autogen, elixir-format
 msgid "VAT ID"
 msgstr "NIP"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:48
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:53
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:49
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:54
 #, elixir-autogen, elixir-format
 msgid "Invoice No. %{invoice_no}"
 msgstr "Faktura VAT %{invoice_no}"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:61
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr "Nazwa towaru lub usługi"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:60
+#, elixir-autogen, elixir-format
+msgid "No."
+msgstr "Lp."
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:63
+#, elixir-autogen, elixir-format
+msgid "Quantity"
+msgstr "Ilość"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:68
+#, elixir-autogen, elixir-format
+msgid "Total gross price"
+msgstr "Wartość brutto"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:65
+#, elixir-autogen, elixir-format
+msgid "Total net price"
+msgstr "Wartość netto"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:62
+#, elixir-autogen, elixir-format
+msgid "Unit"
+msgstr "Jm."
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:64
+#, elixir-autogen, elixir-format
+msgid "Unit net price"
+msgstr "Cena netto"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:67
+#, elixir-autogen, elixir-format
+msgid "VAT amount"
+msgstr "Kwota VAT"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:66
+#, elixir-autogen, elixir-format
+msgid "VAT rate"
+msgstr "Stawka VAT"
