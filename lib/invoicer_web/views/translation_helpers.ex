@@ -34,6 +34,9 @@ defmodule InvoicerWeb.TranslationHelpers do
 
   def dgettext_with_locale(locale, domain, key, bindings \\ %{}) do
     Gettext.put_locale(@context, to_string(locale))
-    Gettext.dgettext(@context, domain, key, bindings)
+
+    @context
+    |> Gettext.dgettext(domain, key, bindings)
+    |> ElixirLatex.LatexHelpers.escape_latex()
   end
 end
