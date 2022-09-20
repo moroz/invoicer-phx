@@ -42,6 +42,8 @@
   \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= @invoice.date_of_sale %>}
 \end{minipage}
 
+\vspace{3mm}
+
 \begin{adjustbox}{center}
 \begin{minipage}[c]{\textwidth}
 <%= render("_company.tex", company: @seller, header: bdgettext("invoice", "Seller"), locale: @locale) %>%
@@ -72,7 +74,7 @@
       \multicolumn{1}{|c|}{\thead[c]{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
       \multicolumn{1}{p{\descriptionwidth}|}{\thead[c]{<%= bdgettext("invoice", "Description", %{}, "\\\\") %>}} &
       <%= table_header bdgettext("invoice", "Unit", %{}, "\\\\") %> &
-      <%= table_header bdgettext("invoice", "Quantity", %{}, "\\\\") %> &
+      \multicolumn{1}{c|}{\thead[c]{<%= bdgettext("invoice", "Quantity", %{}, "\\\\") %>}} &
       <%= table_header bdgettext("invoice", "Unit net price", %{}, "\\\\") %> &
       <%= table_header bdgettext("invoice", "Total net price", %{}, "\\\\") %> &
       <%= table_header bdgettext("invoice", "VAT rate", %{}, "\\\\") %> &
