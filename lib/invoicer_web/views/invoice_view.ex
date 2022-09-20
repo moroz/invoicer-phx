@@ -1,7 +1,8 @@
 defmodule InvoicerWeb.InvoiceView do
   use InvoicerWeb, :view
   import InvoicerWeb.TranslationHelpers
-  alias Invoicer.LineItems.LineItem
+  alias Invoicer.Invoices.Calculator
+  import ElixirLatex.LatexHelpers
 
   defmacro table_header(content) do
     ["\\thead{", content, "}"]

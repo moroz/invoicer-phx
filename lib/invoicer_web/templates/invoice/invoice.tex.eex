@@ -66,15 +66,24 @@
       \multicolumn{1}{c|}{\small <%= row.unit %>} &
       \multicolumn{1}{c|}{\small <%= row.quantity %>} &
       \multicolumn{1}{c|}{\small <%= format_price row.unit_net_price %>} &
-      \small <%= format_price LineItem.total_net_price(row) %> &
-      \small <%= row.vat_rate %> &
-      \small <%= format_price LineItem.vat_amount(row) %> &
-      \small <%= format_price LineItem.total_gross_price(row) %> \\
+      \small <%= format_price Calculator.total_net_price(row) %> &
+      \small <%= escape_latex to_string(row.vat_rate) %> &
+      \small <%= format_price Calculator.vat_amount(row) %> &
+      \small <%= format_price Calculator.total_gross_price(row) %> \\
       \hline
     <% end %>
 
-    \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Including") %>} & & & & \\ \cline{6-9}
-    \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Total") %>} & & & & \\ \cline{6-9}
+    <%= for {{vat_rate, items}, index} <- Calculator.group_by_vat_rate(@invoice.line_items) |> Enum.with_index() do %>
+      \multicolumn{5}{r|}{<%= if index == 0 do %>\bfseries\small <%= bdgettext("invoice", "Including") %><% end %>} &
+      \small <%= format_price Calculator.total_net_price(items) %> &
+      \small <%= escape_latex to_string(vat_rate) %> &
+      \small <%= format_price Calculator.vat_amount(items) %> &
+      \small <%= format_price Calculator.total_gross_price(items) %> \\ \cline{6-9}
+    <% end %>
+    \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Total") %>} &
+    \small <%= format_price Calculator.total_net_price(@invoice) %> & &
+    \small <%= format_price Calculator.vat_amount(@invoice) %> &
+    \small <%= format_price Calculator.total_gross_price(@invoice) %> \\ \cline{6-9}
 
 \end{tabularx}
 

@@ -72,4 +72,12 @@ Repo.transaction(fn ->
     vat_rate: "np.",
     position: 1
   })
+
+  LineItems.create_line_item(%{
+    invoice_id: invoice.id,
+    description: "Dell XPS 15",
+    unit_net_price: Decimal.new("2000"),
+    vat_rate: "23%",
+    position: 2
+  })
 end)

@@ -24,20 +24,4 @@ defmodule Invoicer.LineItems.LineItem do
     |> cast(attrs, @cast)
     |> validate_required(@required)
   end
-
-  def total_net_price(%__MODULE__{} = item) do
-    Decimal.mult(item.quantity, item.unit_net_price)
-  end
-
-  def vat_amount(%__MODULE__{} = item) do
-    vat_rate = VatRate.numeric_value(item.vat_rate)
-
-    item
-    |> total_net_price()
-    |> Decimal.mult(vat_rate)
-  end
-
-  def total_gross_price(%__MODULE__{} = item) do
-    Decimal.add(total_net_price(item), vat_amount(item))
-  end
 end
