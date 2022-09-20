@@ -1,10 +1,10 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 \usepackage{fontspec,setspace,graphicx,fancyhdr}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[margin=1.5cm, bottom=2cm]{geometry}
 \usepackage{makecell,tabularx,colortbl,hyperref}
 \definecolor{BoxBG}{HTML}{DDDDDD}
-\setmainfont[Mapping=tex-text]{Helvetica Neue}
+\setmainfont[Mapping=tex-text]{Roboto}
 \usepackage{adjustbox}
 
 \hypersetup{colorlinks=true}
@@ -58,6 +58,7 @@
   \end{center}
 <% end %>
 
+\setlength\extrarowheight{2pt}
 \begin{adjustbox}{center}
   \begin{tabularx}{1.0\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
     \hline
