@@ -5,7 +5,7 @@
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{makecell,tabularx,colortbl}
 \definecolor{BoxBG}{HTML}{DDDDDD}
-\setmainfont[Mapping=tex-text]{PT Sans}
+\setmainfont[Mapping=tex-text]{Helvetica Neue}
 \usepackage{booktabs}
 
 \newcommand{\boxheader}[1]{%
@@ -31,9 +31,13 @@
   \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= @invoice.date_of_sale %>}
 \end{minipage}
 
+\begin{center}
+\begin{minipage}[c]{\textwidth}
 <%= render("_company.tex", company: @seller, header: bdgettext("invoice", "Seller"), locale: @locale) %>%
 \hfill%
 <%= render("_company.tex", company: @buyer, header: bdgettext("invoice", "Buyer"), locale: @locale) %>
+\end{minipage}
+\end{center}
 
 \vspace{1em}
 
@@ -47,6 +51,7 @@
   \end{center}
 <% end %>
 
+\begin{centering}
 \begin{tabularx}{\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
   \hline
   \rowcolor{BoxBG}
@@ -86,6 +91,11 @@
     \small <%= format_price Calculator.total_gross_price(@invoice) %> \\ \cline{6-9}
 
 \end{tabularx}
+\end{centering}
+
+\vspace{1cm}\hfill\begin{minipage}{0.45\textwidth}
+  {\bfseries <%= bdgettext("invoice", "To pay") %>\hfill{}<%= format_price Calculator.total_gross_price(@invoice) %> <%= @invoice.currency %>}
+\end{minipage}
 
 \end{document}
 

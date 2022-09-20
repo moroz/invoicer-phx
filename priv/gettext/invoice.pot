@@ -91,12 +91,17 @@ msgstr ""
 msgid "VAT rate"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:76
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:77
 #, elixir-autogen, elixir-format
 msgid "Including"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:77
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:83
 #, elixir-autogen, elixir-format
 msgid "Total"
+msgstr ""
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:91
+#, elixir-autogen, elixir-format
+msgid "To pay"
 msgstr ""

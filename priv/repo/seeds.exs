@@ -62,7 +62,8 @@ Repo.transaction(fn ->
       date_of_sale: date,
       date_of_issue: date,
       place_of_issue: seller.city,
-      gross_total: 0
+      gross_total: 0,
+      currency: "EUR"
     })
 
   LineItems.create_line_item(%{
