@@ -5,7 +5,7 @@ defmodule InvoicerWeb.InvoiceView do
   import ElixirLatex.LatexHelpers
 
   defmacro table_header(content) do
-    ["\\thead{", content, "}"]
+    ["\\thead[Xb]{\\centering ", content, "}"]
   end
 
   def format_price(price) do

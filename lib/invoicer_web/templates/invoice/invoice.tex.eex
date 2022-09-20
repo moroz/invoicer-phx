@@ -1,18 +1,21 @@
 \documentclass[a4paper]{article}
 \usepackage{fontspec,setspace,graphicx,fancyhdr}
 \usepackage[dvipsnames]{xcolor}
-\usepackage[margin=1.5cm, bottom=2cm]{geometry}
+\usepackage[margin=1.5cm, bottom=2.75cm]{geometry}
 \usepackage{makecell,tabularx,colortbl,hyperref}
 \definecolor{BoxBG}{HTML}{DDDDDD}
 \setmainfont[Mapping=tex-text]{Roboto}
 \usepackage{adjustbox}
+\hyphenation{Maß-ein-heit}
+
+\newcommand{\descriptionwidth}{4.0cm}
 
 \hypersetup{colorlinks=true}
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyfoot[L]{\footnotesize Generated with \href{https://faktury.wtf}{faktury.wtf}}
-\fancyfoot[C]{\footnotesize\thepage}
+\fancyfoot[L]{\small Generated with \href{https://faktury.wtf}{faktury.wtf}}
+\fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0pt}
 
 \newcommand{\boxheader}[1]{%
@@ -28,6 +31,7 @@
   }\\[3pt]}
 
 \renewcommand\theadfont{\bfseries\footnotesize}
+\renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
 
 \begin{document}
 
@@ -38,15 +42,15 @@
   \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= @invoice.date_of_sale %>}
 \end{minipage}
 
-\begin{center}
+\begin{adjustbox}{center}
 \begin{minipage}[c]{\textwidth}
 <%= render("_company.tex", company: @seller, header: bdgettext("invoice", "Seller"), locale: @locale) %>%
 \hfill%
 <%= render("_company.tex", company: @buyer, header: bdgettext("invoice", "Buyer"), locale: @locale) %>
 \end{minipage}
-\end{center}
+\end{adjustbox}
 
-\vspace{1em}
+\vspace{1cm}
 
 \begin{center}
 {\LARGE\bfseries <%= ldgettext(@first_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: @invoice.invoice_no}) %>}
@@ -58,15 +62,18 @@
   \end{center}
 <% end %>
 
+\vspace{.5cm}
+
 \setlength\extrarowheight{2pt}
 \begin{adjustbox}{center}
-  \begin{tabularx}{1.0\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
+  \begin{tabularx}{1.0\textwidth}{ | c | p{\descriptionwidth} | c | c | c | c | c | c | c |} 
     \hline
-      \multicolumn{1}{|c|}{\thead{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
-      \multicolumn{1}{X|}{\thead{<%= bdgettext("invoice", "Description", %{}, "\\\\") %>}} &
-      \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit", %{}, "\\\\") %>}} &
-      \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Quantity", %{}, "\\\\") %>}} &
-      \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit net price", %{}, "\\\\") %>}} &
+      \rowcolor{BoxBG}
+      \multicolumn{1}{|c|}{\thead[c]{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
+      \multicolumn{1}{p{\descriptionwidth}|}{\thead[c]{<%= bdgettext("invoice", "Description", %{}, "\\\\") %>}} &
+      <%= table_header bdgettext("invoice", "Unit", %{}, "\\\\") %> &
+      <%= table_header bdgettext("invoice", "Quantity", %{}, "\\\\") %> &
+      <%= table_header bdgettext("invoice", "Unit net price", %{}, "\\\\") %> &
       <%= table_header bdgettext("invoice", "Total net price", %{}, "\\\\") %> &
       <%= table_header bdgettext("invoice", "VAT rate", %{}, "\\\\") %> &
       <%= table_header bdgettext("invoice", "VAT amount", %{}, "\\\\") %> &
@@ -75,7 +82,7 @@
 
       <%= for {row, index} <- Enum.with_index(@invoice.line_items) do %>
         \multicolumn{1}{|c|}{\small <%= index + 1 %>} &
-        \multicolumn{1}{>{\raggedright\arraybackslash}X|}{\small <%= row.description %>} &
+        \multicolumn{1}{>{\raggedright\arraybackslash}p{\descriptionwidth}|}{\small <%= row.description %>} &
         \multicolumn{1}{c|}{\small <%= row.unit %>} &
         \multicolumn{1}{c|}{\small <%= row.quantity %>} &
         \multicolumn{1}{c|}{\small <%= format_price row.unit_net_price %>} &
@@ -107,7 +114,7 @@
 \begin{minipage}{\textwidth}
 <%= if @invoice.account_no do %>
   \begin{minipage}[t]{0.45\textwidth}
-    \textbf{<%= bdgettext("invoice", "Account number") %>}\\
+    \textbf{<%= bdgettext("invoice", "Account number") %>}\\[2pt]
     <%= format_plain_as_latex(@invoice.account_no) %>
   \end{minipage}%
 <% end %>%

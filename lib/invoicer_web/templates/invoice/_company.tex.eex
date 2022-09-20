@@ -1,7 +1,8 @@
-\begin{minipage}[b]{0.46\textwidth}
+\begin{minipage}[t]{0.46\textwidth}
   \boxheader{\bfseries <%= @header %>}
   \begin{minipage}{\textwidth}
     \vspace{3pt}
+    \setlength\leftskip{2pt}
     <%= @company.name %>\\
     <%= bdgettext("invoice", "VAT ID") %>: <%= @company.vat_id %>\\
     <%= @company.address_line %>\\
