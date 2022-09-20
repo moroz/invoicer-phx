@@ -2,11 +2,12 @@
 \usepackage{fontspec,setspace}
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage[margin=1.5cm, bottom=2cm]{geometry}
 \usepackage{makecell,tabularx,colortbl}
 \definecolor{BoxBG}{HTML}{DDDDDD}
 \setmainfont[Mapping=tex-text]{Helvetica Neue}
 \usepackage{booktabs}
+\usepackage{adjustbox}
 
 \newcommand{\boxheader}[1]{%
 \colorbox{BoxBG}{%
@@ -51,51 +52,63 @@
   \end{center}
 <% end %>
 
-\begin{centering}
-\begin{tabularx}{\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
-  \hline
-  \rowcolor{BoxBG}
-    \multicolumn{1}{|c|}{\thead{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
-    \multicolumn{1}{X|}{\thead{<%= bdgettext("invoice", "Description", %{}, "\\\\") %>}} &
-    \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit", %{}, "\\\\") %>}} &
-    \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Quantity", %{}, "\\\\") %>}} &
-    \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit net price", %{}, "\\\\") %>}} &
-    <%= table_header bdgettext("invoice", "Total net price", %{}, "\\\\") %> &
-    <%= table_header bdgettext("invoice", "VAT rate", %{}, "\\\\") %> &
-    <%= table_header bdgettext("invoice", "VAT amount", %{}, "\\\\") %> &
-    <%= table_header bdgettext("invoice", "Total gross price", %{}, "\\\\") %> \\[3pt]
-
-    <%= for {row, index} <- Enum.with_index(@invoice.line_items) do %>
-      \multicolumn{1}{|c|}{\small <%= index + 1 %>} &
-      \multicolumn{1}{>{\raggedright\arraybackslash}X|}{\small <%= row.description %>} &
-      \multicolumn{1}{c|}{\small <%= row.unit %>} &
-      \multicolumn{1}{c|}{\small <%= row.quantity %>} &
-      \multicolumn{1}{c|}{\small <%= format_price row.unit_net_price %>} &
-      \small <%= format_price Calculator.total_net_price(row) %> &
-      \small <%= escape_latex to_string(row.vat_rate) %> &
-      \small <%= format_price Calculator.vat_amount(row) %> &
-      \small <%= format_price Calculator.total_gross_price(row) %> \\
+\begin{adjustbox}{center}
+  \begin{tabularx}{1.0\textwidth}{ c  X  p{1cm}  c  c | c | c | c | c |} 
+    \hline
+      \multicolumn{1}{|c|}{\thead{<%= bdgettext("invoice", "No.", %{}, "\\\\") %>}} &
+      \multicolumn{1}{X|}{\thead{<%= bdgettext("invoice", "Description", %{}, "\\\\") %>}} &
+      \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit", %{}, "\\\\") %>}} &
+      \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Quantity", %{}, "\\\\") %>}} &
+      \multicolumn{1}{c|}{\thead{<%= bdgettext("invoice", "Unit net price", %{}, "\\\\") %>}} &
+      <%= table_header bdgettext("invoice", "Total net price", %{}, "\\\\") %> &
+      <%= table_header bdgettext("invoice", "VAT rate", %{}, "\\\\") %> &
+      <%= table_header bdgettext("invoice", "VAT amount", %{}, "\\\\") %> &
+      <%= table_header bdgettext("invoice", "Total gross price", %{}, "\\\\") %> \\[3pt]
       \hline
-    <% end %>
 
-    <%= for {{vat_rate, items}, index} <- Calculator.group_by_vat_rate(@invoice.line_items) |> Enum.with_index() do %>
-      \multicolumn{5}{r|}{<%= if index == 0 do %>\bfseries\small <%= bdgettext("invoice", "Including") %><% end %>} &
-      \small <%= format_price Calculator.total_net_price(items) %> &
-      \small <%= escape_latex to_string(vat_rate) %> &
-      \small <%= format_price Calculator.vat_amount(items) %> &
-      \small <%= format_price Calculator.total_gross_price(items) %> \\ \cline{6-9}
-    <% end %>
-    \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Total") %>} &
-    \small <%= format_price Calculator.total_net_price(@invoice) %> & &
-    \small <%= format_price Calculator.vat_amount(@invoice) %> &
-    \small <%= format_price Calculator.total_gross_price(@invoice) %> \\ \cline{6-9}
+      <%= for {row, index} <- Enum.with_index(@invoice.line_items) do %>
+        \multicolumn{1}{|c|}{\small <%= index + 1 %>} &
+        \multicolumn{1}{>{\raggedright\arraybackslash}X|}{\small <%= row.description %>} &
+        \multicolumn{1}{c|}{\small <%= row.unit %>} &
+        \multicolumn{1}{c|}{\small <%= row.quantity %>} &
+        \multicolumn{1}{c|}{\small <%= format_price row.unit_net_price %>} &
+        \small <%= format_price Calculator.total_net_price(row) %> &
+        \small <%= escape_latex to_string(row.vat_rate) %> &
+        \small <%= format_price Calculator.vat_amount(row) %> &
+        \small <%= format_price Calculator.total_gross_price(row) %> \\
+        \hline
+      <% end %>
 
-\end{tabularx}
-\end{centering}
+      <%= for {{vat_rate, items}, index} <- Calculator.group_by_vat_rate(@invoice.line_items) |> Enum.with_index() do %>
+        \multicolumn{5}{r|}{<%= if index == 0 do %>\bfseries\small <%= bdgettext("invoice", "Including") %><% end %>} &
+        \small <%= format_price Calculator.total_net_price(items) %> &
+        \small <%= escape_latex to_string(vat_rate) %> &
+        \small <%= format_price Calculator.vat_amount(items) %> &
+        \small <%= format_price Calculator.total_gross_price(items) %> \\ \cline{6-9}
+      <% end %>
+      \multicolumn{5}{r|}{\bfseries\small <%= bdgettext("invoice", "Total") %>} &
+      \small <%= format_price Calculator.total_net_price(@invoice) %> & &
+      \small <%= format_price Calculator.vat_amount(@invoice) %> &
+      \small <%= format_price Calculator.total_gross_price(@invoice) %> \\ \cline{6-9}
 
-\vspace{1cm}\hfill\begin{minipage}{0.45\textwidth}
+  \end{tabularx}
+\end{adjustbox}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{minipage}{\textwidth}
+<%= if @invoice.account_no do %>
+  \begin{minipage}[t]{0.45\textwidth}
+    \textbf{<%= bdgettext("invoice", "Account number") %>}\\
+    <%= format_plain_as_latex(@invoice.account_no) %>
+  \end{minipage}%
+<% end %>%
+\hfill\begin{minipage}[t]{0.45\textwidth}
   {\bfseries <%= bdgettext("invoice", "To pay") %>\hfill{}<%= format_price Calculator.total_gross_price(@invoice) %> <%= @invoice.currency %>}
 \end{minipage}
+\end{minipage}
+\end{center}
 
 \end{document}
 
