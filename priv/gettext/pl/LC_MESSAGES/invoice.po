@@ -24,7 +24,7 @@ msgstr "Data sprzedaży"
 #: lib/invoicer_web/templates/invoice/invoice.tex.eex:30
 #, elixir-autogen, elixir-format
 msgid "Place of issue"
-msgstr "Miejse wystawienia"
+msgstr "Miejsce wystawienia"
 
 #: lib/invoicer_web/templates/invoice/invoice.tex.eex:39
 #, elixir-autogen, elixir-format

@@ -1,13 +1,19 @@
 \documentclass{article}
-\usepackage{fontspec,setspace}
-\usepackage{graphicx}
+\usepackage{fontspec,setspace,graphicx,fancyhdr}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[margin=1.5cm, bottom=2cm]{geometry}
-\usepackage{makecell,tabularx,colortbl}
+\usepackage{makecell,tabularx,colortbl,hyperref}
 \definecolor{BoxBG}{HTML}{DDDDDD}
 \setmainfont[Mapping=tex-text]{Helvetica Neue}
-\usepackage{booktabs}
 \usepackage{adjustbox}
+
+\hypersetup{colorlinks=true}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{\footnotesize Generated with \href{https://faktury.wtf}{faktury.wtf}}
+\fancyfoot[C]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0pt}
 
 \newcommand{\boxheader}[1]{%
 \colorbox{BoxBG}{%
