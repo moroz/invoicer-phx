@@ -5,19 +5,19 @@ defmodule InvoicerWeb.InvoiceDocument do
 
   alias ElixirLatex.Job
 
-  def generate(invoice, locales) do
+  def generate(invoice) do
     new()
     |> assign(:invoice, invoice)
     |> assign(:seller, invoice.seller)
     |> assign(:buyer, invoice.buyer)
     |> assign(:line_items, invoice.line_items)
-    |> assign_locale(locales)
+    |> assign_locale(invoice.locale)
     |> Job.render("invoice.tex")
   end
 
   defguard is_locale(locale) when is_binary(locale) or is_atom(locale)
 
-  def assign_locale(%Job{} = job, locale) when is_locale(locale) do
+  def assign_locale(%Job{} = job, [locale]) when is_locale(locale) do
     job
     |> Job.assign(:locale, [locale])
     |> Job.assign(:first_locale, locale)

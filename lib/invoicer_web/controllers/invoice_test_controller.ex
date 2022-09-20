@@ -6,7 +6,7 @@ defmodule InvoicerWeb.InvoiceTestController do
 
   def index(conn, _params) do
     invoice = Invoices.get_last()
-    {:ok, pdf} = InvoiceDocument.generate(invoice, [:de, :pl])
+    {:ok, pdf} = InvoiceDocument.generate(invoice)
 
     conn
     |> put_resp_header("content-disposition", "inline")
