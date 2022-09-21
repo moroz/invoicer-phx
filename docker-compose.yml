@@ -11,6 +11,8 @@ services:
       PHX_HOST: "localhost"
     volumes:
       - tmp:/tmp
+    depends_on:
+      - pg
 
   pg:
     image: postgres:14.5

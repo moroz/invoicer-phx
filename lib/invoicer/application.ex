@@ -3,22 +3,25 @@ defmodule Invoicer.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  @migrator if Mix.env() == :prod, do: [Invoicer.Migrator], else: []
+
   use Application
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Start the Ecto repository
-      Invoicer.Repo,
-      # Start the Telemetry supervisor
-      InvoicerWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: Invoicer.PubSub},
-      # Start the Endpoint (http/https)
-      InvoicerWeb.Endpoint
-      # Start a worker by calling: Invoicer.Worker.start_link(arg)
-      # {Invoicer.Worker, arg}
-    ]
+    children =
+      [
+        # Start the Ecto repository
+        Invoicer.Repo,
+        # Start the Telemetry supervisor
+        InvoicerWeb.Telemetry,
+        # Start the PubSub system
+        {Phoenix.PubSub, name: Invoicer.PubSub},
+        # Start the Endpoint (http/https)
+        InvoicerWeb.Endpoint
+        # Start a worker by calling: Invoicer.Worker.start_link(arg)
+        # {Invoicer.Worker, arg}
+      ] ++ @migrator
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

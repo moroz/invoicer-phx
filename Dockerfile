@@ -86,92 +86,26 @@ RUN echo "Initial update." &&\
 # install utilities
     echo "Installing utilities." &&\
     apt-get install -f -y --no-install-recommends apt-utils &&\
-# get and update certificates, to hopefully resolve mscorefonts error
-    echo "Get and update certificates for mscorefonts." &&\
-    apt-get install -f -y --no-install-recommends ca-certificates &&\
-    update-ca-certificates &&\
-# install some utilitites and nice fonts, e.g., for Chinese and others
     echo "Installing utilities and nice fonts for Chinese and others." &&\
     apt-get install -f -y --no-install-recommends \
           curl \
-          emacs-intl-fonts \
           fontconfig \
-          fonts-arphic-bkai00mp \
-          fonts-arphic-bsmi00lp \
-          fonts-arphic-gbsn00lp \
-          fonts-arphic-gkai00mp \
-          fonts-arphic-ukai \
-          fonts-arphic-uming \
           fonts-dejavu \
           fonts-dejavu-core \
-          fonts-dejavu-extra \
-          fonts-droid-fallback \
-          fonts-guru \
-          fonts-guru-extra \
-          fonts-liberation \
-          fonts-noto-cjk \
-          fonts-opensymbol \
-          fonts-roboto \
-          fonts-roboto-hinted \
-          fonts-stix \
-          fonts-symbola \
-          fonts-texgyre \
-          fonts-unfonts-core \
-          ttf-wqy-microhei \
-          ttf-wqy-zenhei \
-          xfonts-intl-chinese \
-          xfonts-intl-chinese-big \
-          xfonts-wqy &&\
-# now the microsoft core fonts
-    echo "Installing microsoft core fonts." &&\
-    echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections &&\
-    echo "ttf-mscorefonts-installer msttcorefonts/present-mscorefonts-eula note" | debconf-set-selections &&\
-    curl --output "/tmp/ttf-mscorefonts-installer.deb" "http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.7_all.deb" &&\
-    (apt install -f -y --no-install-recommends "/tmp/ttf-mscorefonts-installer.deb" || true) &&\
-    rm -f "/tmp/ttf-mscorefonts-installer.deb" &&\
-# we make sure to contain the EULA in our container
-    curl --output "/root/mscorefonts-eula" "http://corefonts.sourceforge.net/eula.htm" &&\
+          fonts-roboto &&\
     echo "Installing TeX Live and ghostscript and other tools." &&\
 # install TeX Live and ghostscript as well as other tools
     apt-get install -f -y --no-install-recommends \
-          biber \
-          cm-super \
-          dvipng \
-          fonts-dejavu \
-          fonts-dejavu-core \
-          fonts-dejavu-extra \
-          fonts-roboto \
           ghostscript \
-          gnuplot \
           make \
-          latexmk \
-          lcdf-typetools \
           lmodern \
-          poppler-utils \
-          psutils \
-          purifyeps \
-          t1utils \
-          tex-gyre \
           texlive-base \
           texlive-binaries \
-          texlive-extra-utils \
-          texlive-font-utils \
-          texlive-fonts-extra \
-          texlive-fonts-extra-links \
-          texlive-fonts-recommended \
           texlive-formats-extra \
-          texlive-lang-all \
           texlive-latex-base \
           texlive-latex-extra \
           texlive-latex-recommended \
-          texlive-luatex \
-          texlive-metapost \
-          texlive-pictures \
-          texlive-plain-generic \
-          texlive-pstricks \
-          texlive-publishers \
-          texlive-xetex \
-          texlive-bibtex-extra &&\
+          texlive-xetex &&\
 # delete Tex Live sources and other potentially useless stuff
     echo "Delete TeX Live sources and other useless stuff." &&\
     (rm -rf /usr/share/texmf/source || true) &&\
