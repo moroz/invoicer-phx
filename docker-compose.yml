@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    ports:
+      - 4000:4000
+    environment:
+      DATABASE_URL: "postgres://app:app@pg:5432/invoicer_prod"
+      SECRET_KEY_BASE: "v86iPaozO6l9ei5xo1MYumtFPnikQFd4fw86qApkwYicvT40VUFKptvGHUdY/UPy"
+      PHX_HOST: "localhost"
+    volumes:
+      - tmp:/tmp
+
+  pg:
+    image: postgres:14.5
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: invoicer_prod
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  tmp:
+  db:
+
