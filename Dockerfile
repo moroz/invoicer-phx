@@ -86,18 +86,14 @@ RUN echo "Initial update." &&\
 # install utilities
     echo "Installing utilities." &&\
     apt-get install -f -y --no-install-recommends apt-utils &&\
-    echo "Installing utilities and nice fonts for Chinese and others." &&\
     apt-get install -f -y --no-install-recommends \
           curl \
           fontconfig \
           fonts-dejavu \
-          fonts-dejavu-core \
           fonts-roboto &&\
     echo "Installing TeX Live and ghostscript and other tools." &&\
 # install TeX Live and ghostscript as well as other tools
     apt-get install -f -y --no-install-recommends \
-          ghostscript \
-          make \
           lmodern \
           texlive-base \
           texlive-binaries \
