@@ -50,7 +50,9 @@ defmodule Invoicer.MixProject do
       {:elixir_latex, "~> 0.3.0"},
       {:ecto_enum, "~> 1.4"},
       {:timex, "~> 3.7"},
-      {:hackney, "~> 1.18"}
+      {:hackney, "~> 1.18"},
+      {:absinthe, "~> 1.7"},
+      {:absinthe_plug, "~> 1.5"}
     ]
   end
 
