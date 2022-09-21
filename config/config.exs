@@ -10,6 +10,8 @@ import Config
 config :invoicer,
   ecto_repos: [Invoicer.Repo]
 
+config :invoicer, Invoicer.Repo, migration_primary_key: [name: :id, type: :binary_id]
+
 # Configures the endpoint
 config :invoicer, InvoicerWeb.Endpoint,
   url: [host: "localhost"],

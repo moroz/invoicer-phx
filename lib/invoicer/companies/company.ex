@@ -1,5 +1,5 @@
 defmodule Invoicer.Companies.Company do
-  use Ecto.Schema
+  use Invoicer.Schema
   import Ecto.Changeset
 
   schema "companies" do

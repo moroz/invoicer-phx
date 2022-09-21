@@ -1,5 +1,5 @@
 defmodule Invoicer.LineItems.LineItem do
-  use Ecto.Schema
+  use Invoicer.Schema
   import Ecto.Changeset
   alias Invoicer.LineItems.LineItem.VatRate
 

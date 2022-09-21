@@ -1,5 +1,5 @@
 defmodule Invoicer.Invoices.Invoice do
-  use Ecto.Schema
+  use Invoicer.Schema
   import Ecto.Changeset
   alias Invoicer.Companies.Company
   alias Invoicer.LineItems.LineItem
