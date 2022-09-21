@@ -64,7 +64,8 @@ Repo.transaction(fn ->
       place_of_issue: seller.city,
       gross_total: 0,
       currency: "EUR",
-      account_no: "PL 20 1020 2030 0000 5529 0728 9913\nBIC: BPKOPLPW"
+      account_no: "PL 20 1020 2030 0000 5529 0728 9913\nBIC: BPKOPLPW",
+      locale: [:de, :pl]
     })
 
   LineItems.create_line_item(%{

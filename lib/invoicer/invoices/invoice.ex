@@ -21,7 +21,7 @@ defmodule Invoicer.Invoices.Invoice do
   end
 
   @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total buyer_id seller_id currency)a
-  @cast @required ++ [:account_no]
+  @cast @required ++ [:account_no, :locale]
 
   @doc false
   def changeset(invoice, attrs) do
