@@ -12,15 +12,28 @@ defmodule Invoicer.Users.User do
     timestamps()
   end
 
-  @required ~w(email password password_confirmation)a
+  @required ~w(email)a
+  @cast @required ++ ~w(password password_confirmation)a
 
   @doc false
-  def changeset(user, attrs) do
+  def base_changeset(user, attrs) do
     user
-    |> cast(attrs, @required)
+    |> cast(attrs, @cast)
     |> validate_required(@required)
     |> unique_constraint(:email)
     |> validate_confirmation(:password)
+  end
+
+  def update_changeset(user, attrs) do
+    user
+    |> base_changeset(attrs)
+    |> hash_password()
+  end
+
+  def registration_changeset(user, attrs) do
+    user
+    |> base_changeset(attrs)
+    |> validate_required([:password])
     |> hash_password()
   end
 

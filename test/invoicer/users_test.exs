@@ -38,11 +38,16 @@ defmodule Invoicer.UsersTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{email: "some updated email", password_hash: "some updated password_hash"}
 
-      assert {:ok, %User{} = user} = Users.update_user(user, update_attrs)
-      assert user.email == "some updated email"
-      assert user.password_hash == "some updated password_hash"
+      update_attrs = %{
+        email: "new@example.com",
+        password: "new_password",
+        password_confirmation: "new_password"
+      }
+
+      assert {:ok, %User{} = updated} = Users.update_user(user, update_attrs)
+      assert updated.email == update_attrs.email
+      assert updated.password_hash != user.password_hash
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -55,11 +60,6 @@ defmodule Invoicer.UsersTest do
       user = user_fixture()
       assert {:ok, %User{}} = Users.delete_user(user)
       assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.id) end
-    end
-
-    test "change_user/1 returns a user changeset" do
-      user = user_fixture()
-      assert %Ecto.Changeset{} = Users.change_user(user)
     end
   end
 end
