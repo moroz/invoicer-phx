@@ -5,5 +5,6 @@ defmodule InvoicerWeb.Api.Schema do
   import_types(InvoicerWeb.Api.InvoiceTypes)
 
   query do
+    import_fields(:invoice_queries)
   end
 end

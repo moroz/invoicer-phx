@@ -54,7 +54,8 @@ defmodule Invoicer.MixProject do
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
       {:bcrypt_elixir, "~> 3.0"},
-      {:ex_machina, "~> 2.7"}
+      {:ex_machina, "~> 2.7"},
+      {:shorter_maps, "~> 2.2"}
     ]
   end
 

@@ -3,6 +3,11 @@ defmodule Invoicer.Invoices do
   alias Invoicer.Repo
   alias Invoicer.Invoices.Invoice
   alias Invoicer.LineItems.LineItem
+  alias Invoicer.Users.User
+
+  def get_user_invoice(_user, invoice_id) do
+    get_invoice_with_assocs(invoice_id)
+  end
 
   def create_invoice(attrs) do
     %Invoice{}
