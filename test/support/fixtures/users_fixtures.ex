@@ -9,18 +9,12 @@ defmodule Invoicer.UsersFixtures do
   """
   def unique_user_email, do: "some email#{System.unique_integer([:positive])}"
 
+  import Invoicer.Factory
+
   @doc """
   Generate a user.
   """
   def user_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(%{
-        email: unique_user_email(),
-        password_hash: "some password_hash"
-      })
-      |> Invoicer.Users.create_user()
-
-    user
+    insert(:user, attrs)
   end
 end

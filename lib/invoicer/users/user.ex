@@ -31,7 +31,13 @@ defmodule Invoicer.Users.User do
 
       password ->
         password_hash = Bcrypt.hash_pwd_salt(password)
-        put_change(changeset, :password_hash, password_hash)
+
+        changeset
+        |> put_change(:password_hash, password_hash)
+        |> delete_change(:password)
+        |> delete_change(:password_confirmation)
     end
   end
+
+  defp hash_password(changeset), do: changeset
 end

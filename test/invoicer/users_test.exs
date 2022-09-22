@@ -21,11 +21,15 @@ defmodule Invoicer.UsersTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{email: "some email", password_hash: "some password_hash"}
+      valid_attrs = %{
+        email: "user@example.com",
+        password: "foobar",
+        password_confirmation: "foobar"
+      }
 
       assert {:ok, %User{} = user} = Users.create_user(valid_attrs)
-      assert user.email == "some email"
-      assert user.password_hash == "some password_hash"
+      assert user.email == valid_attrs.email
+      assert user.password_hash
     end
 
     test "create_user/1 with invalid data returns error changeset" do
