@@ -6,14 +6,32 @@ defmodule Invoicer.Users.User do
     field :email, :string
     field :password_hash, :string
 
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
+
     timestamps()
   end
+
+  @required ~w(email password password_confirmation)a
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password_hash])
-    |> validate_required([:email, :password_hash])
+    |> cast(attrs, @required)
+    |> validate_required(@required)
     |> unique_constraint(:email)
+    |> validate_confirmation(:password)
+    |> hash_password()
+  end
+
+  defp hash_password(%Ecto.Changeset{valid?: true} = changeset) do
+    case get_change(changeset, :password) do
+      nil ->
+        changeset
+
+      password ->
+        password_hash = Bcrypt.hash_pwd_salt(password)
+        put_change(changeset, :password_hash, password_hash)
+    end
   end
 end

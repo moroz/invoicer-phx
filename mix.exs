@@ -52,7 +52,8 @@ defmodule Invoicer.MixProject do
       {:timex, "~> 3.7"},
       {:hackney, "~> 1.18"},
       {:absinthe, "~> 1.7"},
-      {:absinthe_plug, "~> 1.5"}
+      {:absinthe_plug, "~> 1.5"},
+      {:bcrypt_elixir, "~> 3.0"}
     ]
   end
 
