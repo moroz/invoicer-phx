@@ -17,6 +17,12 @@ defmodule Invoicer.Invoices do
     |> Repo.insert()
   end
 
+  def create_user_invoice(%User{} = user, attrs) do
+    %Invoice{user_id: user.id}
+    |> Invoice.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def preload_assocs(invoice) do
     line_items_query = order_by(LineItem, :position)
     Repo.preload(invoice, [:buyer, :seller, line_items: line_items_query])
