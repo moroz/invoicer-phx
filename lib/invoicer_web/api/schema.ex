@@ -7,4 +7,19 @@ defmodule InvoicerWeb.Api.Schema do
   query do
     import_fields(:invoice_queries)
   end
+
+  alias InvoicerWeb.Api.Middleware.TransformErrors
+
+  def middleware(middleware, _field, %Absinthe.Type.Object{identifier: :query}) do
+    GraphQLTools.ResolutionWithErrorBoundary.replace_resolution_middleware(middleware)
+  end
+
+  def middleware(middleware, _field, %Absinthe.Type.Object{identifier: :mutation}) do
+    List.flatten([
+      GraphQLTools.ResolutionWithErrorBoundary.replace_resolution_middleware(middleware),
+      TransformErrors
+    ])
+  end
+
+  def middleware(middleware, _field, _object), do: middleware
 end

@@ -10,6 +10,13 @@ defmodule InvoicerWeb.Api.InvoiceQueriesTest do
     invoice(id: $id) {
       id
       invoiceNo
+      dateOfIssue
+      dateOfSale
+      grossTotal
+      placeOfIssue
+      currency
+      accountNo
+      locale
     }
   }
   """
@@ -19,6 +26,11 @@ defmodule InvoicerWeb.Api.InvoiceQueriesTest do
       invoice = insert(:invoice)
       %{"invoice" => actual} = query_with_user(@query, user, %{id: invoice.id})
       assert actual["id"] == invoice.id
+    end
+
+    test "return null when called with a non-existent id", ~M{user} do
+      vars = %{id: Ecto.UUID.generate()}
+      %{"invoice" => nil} = query_with_user(@query, user, vars)
     end
   end
 end
