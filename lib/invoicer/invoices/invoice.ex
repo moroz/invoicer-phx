@@ -15,6 +15,7 @@ defmodule Invoicer.Invoices.Invoice do
     field :locale, {:array, Invoicer.Invoices.Locale}
     belongs_to :seller, Company
     belongs_to :buyer, Company
+    belongs_to :user, Invoicer.Users.User
     has_many :line_items, LineItem, on_replace: :delete
 
     timestamps()

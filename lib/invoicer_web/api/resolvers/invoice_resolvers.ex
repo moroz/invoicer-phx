@@ -2,7 +2,7 @@ defmodule InvoicerWeb.Api.InvoiceResolvers do
   import ShorterMaps
   alias Invoicer.Invoices
 
-  def get_invoice(~M{id}, _) do
-    {:ok, Invoices.get_invoice_with_assocs(id)}
+  def get_invoice(~M{id}, %{context: %{current_user: user}}) do
+    {:ok, Invoices.get_user_invoice(user, id)}
   end
 end

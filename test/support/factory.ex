@@ -52,6 +52,7 @@ defmodule Invoicer.Factory do
 
   def invoice_factory do
     %Invoicer.Invoices.Invoice{
+      user: build(:user),
       seller: build(:company),
       buyer: build(:company),
       invoice_no: sequence(:invoice_no, &invoice_no/1),
