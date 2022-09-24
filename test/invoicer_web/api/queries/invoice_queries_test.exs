@@ -17,6 +17,12 @@ defmodule InvoicerWeb.Api.InvoiceQueriesTest do
       currency
       accountNo
       locale
+      seller {
+        id
+      }
+      buyer {
+        id
+      }
     }
   }
   """
@@ -26,6 +32,8 @@ defmodule InvoicerWeb.Api.InvoiceQueriesTest do
       invoice = insert(:invoice, user: user)
       %{"invoice" => actual} = query_with_user(@query, user, %{id: invoice.id})
       assert actual["id"] == invoice.id
+      assert actual["seller"]["id"] == invoice.seller.id
+      assert actual["buyer"]["id"] == invoice.buyer.id
     end
 
     test "returns null when called with other user's invoice id", ~M{user} do

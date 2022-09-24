@@ -3,6 +3,7 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
   alias InvoicerWeb.Api.InvoiceResolvers
 
   import GraphQLTools.SchemaHelpers
+  import InvoicerWeb.Api.Middleware.LazyPreload
 
   enum :locale do
     value(:pl)
@@ -20,6 +21,17 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :currency, non_null(:string)
     field :account_no, :string
     field :locale, non_null(list_of(non_null(:locale)))
+
+    field :seller_id, non_null(:id)
+    field :buyer_id, non_null(:id)
+
+    field :buyer, non_null(:company) do
+      lazy_preload()
+    end
+
+    field :seller, non_null(:company) do
+      lazy_preload()
+    end
   end
 
   object :invoice_mutation_result do
@@ -28,6 +40,12 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
 
   input_object :invoice_params do
     field :invoice_no, non_null(:string)
+    field :date_of_issue, non_null(:date)
+    field :date_of_sale, non_null(:date)
+    field :place_of_issue, non_null(:string)
+    field :currency, non_null(:string)
+    field :account_no, :string
+    field :locale, non_null(list_of(non_null(:locale)))
   end
 
   object :invoice_queries do

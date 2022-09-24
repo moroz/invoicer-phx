@@ -56,7 +56,7 @@ defmodule Invoicer.MixProject do
       {:bcrypt_elixir, "~> 3.0"},
       {:ex_machina, "~> 2.7"},
       {:shorter_maps, "~> 2.2"},
-      {:graphql_tools, github: "moroz/graphql_tools"}
+      {:graphql_tools, path: "../../graphql_tools"}
     ]
   end
 
