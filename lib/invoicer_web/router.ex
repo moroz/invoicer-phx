@@ -21,10 +21,15 @@ defmodule InvoicerWeb.Router do
     get "/invoice", InvoiceTestController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", InvoicerWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+
+    get "/", Absinthe.Plug.GraphiQL, schema: InvoicerWeb.Api.Schema, interface: :playground
+
+    post "/", Absinthe.Plug,
+      schema: InvoicerWeb.Api.Schema,
+      before_send: {GraphQLTools.SessionHelpers, :before_send}
+  end
 
   # Enables the Swoosh mailbox preview in development.
   #
