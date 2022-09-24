@@ -59,7 +59,7 @@ defmodule InvoicerWeb.GraphQLCase do
     opts = [variables: normalize_variables(variables), context: %{current_user: user}]
 
     case Absinthe.run!(document, InvoicerWeb.Api.Schema, opts) do
-      %{data: data} ->
+      %{data: data} when not is_nil(data) ->
         data
 
       error ->

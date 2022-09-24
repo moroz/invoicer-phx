@@ -15,8 +15,8 @@ defmodule Invoicer.LineItems.LineItem do
     timestamps()
   end
 
-  @required ~w(description position quantity unit_net_price vat_rate)a
-  @cast @required ++ [:unit, :invoice_id]
+  @required ~w(description quantity unit_net_price vat_rate)a
+  @cast @required ++ [:unit, :invoice_id, :position]
 
   @doc false
   def changeset(line_item, attrs) do
