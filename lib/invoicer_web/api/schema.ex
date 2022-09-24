@@ -11,6 +11,10 @@ defmodule InvoicerWeb.Api.Schema do
     import_fields(:invoice_queries)
   end
 
+  mutation do
+    import_fields(:invoice_mutations)
+  end
+
   alias InvoicerWeb.Api.Middleware.TransformErrors
 
   def middleware(middleware, _field, %Absinthe.Type.Object{identifier: :query}) do

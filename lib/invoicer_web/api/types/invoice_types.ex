@@ -46,6 +46,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :currency, non_null(:string)
     field :account_no, :string
     field :locale, non_null(list_of(non_null(:locale)))
+    field :buyer_id, :id
+    field :seller_id, :id
   end
 
   object :invoice_queries do

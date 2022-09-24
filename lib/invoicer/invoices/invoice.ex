@@ -7,7 +7,7 @@ defmodule Invoicer.Invoices.Invoice do
   schema "invoices" do
     field :date_of_issue, :date
     field :date_of_sale, :date
-    field :gross_total, :decimal, default: 0
+    field :gross_total, :decimal, default: Decimal.new(0)
     field :invoice_no, :string
     field :place_of_issue, :string
     field :currency, :string

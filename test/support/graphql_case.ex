@@ -107,6 +107,10 @@ defmodule InvoicerWeb.GraphQLCase do
 
   def normalize_variables(%Plug.Upload{} = upload), do: upload
 
+  def normalize_variables(%module{} = datetime) when module in [Date, DateTime, NaiveDateTime] do
+    module.to_iso8601(datetime)
+  end
+
   def normalize_variables(variables) when is_map(variables) or is_list(variables) do
     Map.new(variables, fn {key, val} ->
       {normalize_variable_key(key), normalize_variables(val)}

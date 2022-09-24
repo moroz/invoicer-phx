@@ -7,15 +7,16 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
   @mutation """
   mutation CreateInvoice($params: InvoiceParams!) {
-    createInvoice(params: $params) {
+    result: createInvoice(params: $params) {
       success
       errors {
         key
-        value
+        message
       }
       data {
         id
         invoiceNo
+        grossTotal
       }
     }
   }
@@ -23,7 +24,18 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
   describe "createInvoice mutation" do
     test "creates an invoice with valid params", ~M{user} do
-      params = params_for(:invoice)
+      buyer = insert(:company)
+      seller = insert(:company)
+
+      params =
+        params_for(:invoice, buyer_id: buyer.id, seller_id: seller.id) |> Map.delete(:gross_total)
+
+      vars = %{params: params}
+
+      %{"result" => %{"success" => true, "errors" => [], "data" => actual}} =
+        mutate_with_user(@mutation, user, vars)
+
+      assert actual["grossTotal"]
     end
   end
 end
