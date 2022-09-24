@@ -9,6 +9,7 @@ defmodule Invoicer.Invoices.Invoice do
     field :date_of_issue, :date
     field :date_of_sale, :date
     field :gross_total, :decimal, default: Decimal.new(0)
+    field :net_total, :decimal, default: Decimal.new(0)
     field :invoice_no, :string
     field :place_of_issue, :string
     field :currency, :string
@@ -67,9 +68,12 @@ defmodule Invoicer.Invoices.Invoice do
         changeset
 
       items ->
-        # net_total = Calculator.total_net_price(items)
+        net_total = Calculator.total_net_price(items)
         gross_total = Calculator.total_gross_price(items)
-        put_change(changeset, :gross_total, gross_total)
+
+        changeset
+        |> put_change(:gross_total, gross_total)
+        |> put_change(:net_total, net_total)
     end
   end
 

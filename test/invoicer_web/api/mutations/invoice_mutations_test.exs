@@ -17,6 +17,7 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
         id
         invoiceNo
         grossTotal
+        netTotal
       }
     }
   }
@@ -34,7 +35,7 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
       params =
         params_for(:invoice, buyer_id: buyer.id, seller_id: seller.id, line_items: line_items)
-        |> Map.delete(:gross_total)
+        |> Map.drop([:gross_total, :net_total])
 
       vars = %{params: params}
 
@@ -42,6 +43,7 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
         mutate_with_user(@mutation, user, vars)
 
       assert actual["grossTotal"] == "2030.75"
+      assert actual["netTotal"] == "2025.00"
     end
   end
 end

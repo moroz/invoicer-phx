@@ -28,6 +28,7 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :date_of_issue, non_null(:date)
     field :date_of_sale, non_null(:date)
     field :gross_total, non_null(:decimal)
+    field :net_total, non_null(:decimal)
     field :place_of_issue, non_null(:string)
     field :currency, non_null(:string)
     field :account_no, :string
