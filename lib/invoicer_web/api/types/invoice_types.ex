@@ -5,6 +5,17 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
   import GraphQLTools.SchemaHelpers
   import InvoicerWeb.Api.Middleware.LazyPreload
 
+  enum :vat_rate do
+    value(:np, as: "np.")
+    value(:zw, as: "zw.")
+    value(:oo, as: "o.o.")
+    value(:zero, as: "0%")
+    value(:five, as: "5%")
+    value(:seven, as: "7%")
+    value(:eight, as: "8%")
+    value(:twenty_three, as: "23%")
+  end
+
   enum :locale do
     value(:pl)
     value(:de)
@@ -48,6 +59,14 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :locale, non_null(list_of(non_null(:locale)))
     field :buyer_id, :id
     field :seller_id, :id
+    field :line_items, list_of(non_null(:line_item_params))
+  end
+
+  input_object :line_item_params do
+    field :description, non_null(:string)
+    field :quantity, non_null(:decimal), default_value: Decimal.new(1)
+    field :unit_net_price, non_null(:decimal)
+    field :vat_rate, non_null(:vat_rate)
   end
 
   object :invoice_queries do
