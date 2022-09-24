@@ -1,5 +1,6 @@
 defmodule InvoicerWeb.Router do
   use InvoicerWeb, :router
+  alias InvoicerWeb.Plug.FetchUser
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -12,6 +13,8 @@ defmodule InvoicerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug FetchUser
   end
 
   scope "/", InvoicerWeb do
