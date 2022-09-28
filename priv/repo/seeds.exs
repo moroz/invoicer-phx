@@ -18,11 +18,21 @@ alias Invoicer.Invoices
 alias Invoicer.Invoices.Invoice
 alias Invoicer.LineItems
 alias Invoicer.LineItems.LineItem
+alias Invoicer.Users
+alias Invoicer.Users.User
 
 Repo.transaction(fn ->
+  Repo.delete_all(User)
   Repo.delete_all(LineItem)
   Repo.delete_all(Invoice)
   Repo.delete_all(Company)
+
+  {:ok, user} =
+    Users.create_user(%{
+      email: "user@example.com",
+      password: "foobar",
+      password_confirmation: "foobar"
+    })
 
   {:ok, buyer} =
     Companies.create_company(%{
@@ -30,7 +40,8 @@ Repo.transaction(fn ->
       city: "New York",
       postal_code: "12345",
       vat_id: "PL123456789",
-      address_line: "42 Infinity Drive"
+      address_line: "42 Infinity Drive",
+      user_id: user.id
     })
 
   {:ok, seller} =
@@ -39,7 +50,8 @@ Repo.transaction(fn ->
       city: "Tokyo",
       postal_code: "00-819",
       vat_id: "JP123456789",
-      address_line: "42 Sun Yat-sen Rd."
+      address_line: "42 Sun Yat-sen Rd.",
+      user_id: user.id
     })
 
   invoice_no = DateTime.utc_now() |> Calendar.strftime("01/%m/%Y")
@@ -56,6 +68,7 @@ Repo.transaction(fn ->
 
   {:ok, invoice} =
     Invoices.create_invoice(%{
+      user_id: user.id,
       buyer_id: buyer.id,
       seller_id: seller.id,
       invoice_no: invoice_no,

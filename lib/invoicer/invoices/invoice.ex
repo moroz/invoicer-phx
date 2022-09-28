@@ -23,7 +23,7 @@ defmodule Invoicer.Invoices.Invoice do
     timestamps()
   end
 
-  @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total buyer_id seller_id currency)a
+  @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total buyer_id seller_id currency user_id)a
   @cast @required ++ [:account_no, :locale]
 
   @doc false
@@ -70,6 +70,7 @@ defmodule Invoicer.Invoices.Invoice do
       items ->
         net_total = Calculator.total_net_price(items)
         gross_total = Calculator.total_gross_price(items)
+        dbg()
 
         changeset
         |> put_change(:gross_total, gross_total)

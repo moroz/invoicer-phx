@@ -8,3 +8,5 @@ alias Invoicer.Invoices.Invoice
 alias Invoicer.LineItems
 alias Invoicer.LineItems.LineItem
 alias Invoicer.LineItems.LineItem.VatRate
+alias Invoicer.Users
+alias Invoicer.Users.User

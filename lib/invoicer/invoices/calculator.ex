@@ -13,7 +13,7 @@ defmodule Invoicer.Invoices.Calculator do
   def total_net_price(items) when is_list(items) do
     items
     |> Enum.map(&total_net_price/1)
-    |> Enum.reduce(&Decimal.add/2)
+    |> Enum.reduce(&Decimal.add/2) || Decimal.new(0)
   end
 
   def total_net_price(%Ecto.Changeset{} = changeset) do
