@@ -18,17 +18,6 @@ defmodule InvoicerWeb.Api.UserTypes do
     field :current_user, :user do
       resolve(&UserResolvers.current_user/2)
     end
-
-    field :user, :user do
-      arg(:id, non_null(:id))
-      middleware(InvoicerWeb.Api.Middleware.RequireRole, :admin)
-      resolve(&UserResolvers.get_user/2)
-    end
-
-    field :users, non_null(list_of(non_null(:user))) do
-      middleware(InvoicerWeb.Api.Middleware.RequireRole, :admin)
-      resolve(&UserResolvers.list_users/2)
-    end
   end
 
   object :user_mutation_result do

@@ -10,10 +10,12 @@ defmodule Invoicer.Invoices.Calculator do
     |> Enum.sort_by(fn {vat_rate, _} -> VatRate.numeric_value(vat_rate) end)
   end
 
+  def total_net_price([]), do: Decimal.new(0)
+
   def total_net_price(items) when is_list(items) do
     items
     |> Enum.map(&total_net_price/1)
-    |> Enum.reduce(&Decimal.add/2) || Decimal.new(0)
+    |> Enum.reduce(&Decimal.add/2)
   end
 
   def total_net_price(%Ecto.Changeset{} = changeset) do
@@ -48,11 +50,15 @@ defmodule Invoicer.Invoices.Calculator do
     |> Decimal.mult(vat_rate)
   end
 
+  def vat_amount([]), do: Decimal.new(0)
+
   def vat_amount(items) when is_list(items) do
     items
     |> Enum.map(&vat_amount/1)
     |> Enum.reduce(&Decimal.add/2)
   end
+
+  def total_gross_price([]), do: Decimal.new(0)
 
   def total_gross_price(items) when is_list(items) do
     items

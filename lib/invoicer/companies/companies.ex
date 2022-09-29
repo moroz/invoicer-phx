@@ -10,6 +10,12 @@ defmodule Invoicer.Companies do
     |> Repo.insert()
   end
 
+  def create_user_company(%User{} = user, attrs) do
+    %Company{user_id: user.id}
+    |> Company.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def filter_and_paginate_companies(%User{} = user, params) when is_map(params) do
     user
     |> Company.for_user()

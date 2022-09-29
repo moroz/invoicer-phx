@@ -11,10 +11,12 @@ defmodule InvoicerWeb.Api.Schema do
   query do
     import_fields(:invoice_queries)
     import_fields(:user_queries)
+    import_fields(:company_queries)
   end
 
   mutation do
     import_fields(:invoice_mutations)
+    import_fields(:company_mutations)
     import_fields(:user_mutations)
   end
 
