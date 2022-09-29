@@ -11,13 +11,17 @@ msgid ""
 msgstr ""
 
 ## Manually added
-msgid "Invoice"
+msgid "cash"
 msgstr ""
 
 ## Manually added
-msgid "VAT Invoice"
+msgid "transfer"
 msgstr ""
 
 ## Manually added
-msgid "Invoice (reverse charge)"
+msgid "credit card"
+msgstr ""
+
+## Manually added
+msgid "payment card"
 msgstr ""

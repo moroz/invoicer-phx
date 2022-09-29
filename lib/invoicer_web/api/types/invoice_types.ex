@@ -16,6 +16,19 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     value(:twenty_three, as: "23%")
   end
 
+  enum :invoice_type do
+    value(:invoice, as: "Invoice")
+    value(:invoice_rc, as: "Invoice (reverse charge)")
+    value(:vat_invoice, as: "VAT Invoice")
+  end
+
+  enum :payment_method do
+    value(:card)
+    value(:transfer)
+    value(:credit_card, as: "credit card")
+    value(:payment_card, as: "payment card")
+  end
+
   enum :locale do
     value(:pl)
     value(:de)
@@ -33,6 +46,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :currency, non_null(:string)
     field :account_no, :string
     field :locale, non_null(list_of(non_null(:locale)))
+    field :invoice_type, non_null(:invoice_type)
+    field :payment_method, non_null(:payment_method)
 
     field :seller_id, non_null(:id)
     field :buyer_id, non_null(:id)
@@ -57,6 +72,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :place_of_issue, non_null(:string)
     field :currency, non_null(:string)
     field :account_no, :string
+    field :invoice_type, non_null(:invoice_type)
+    field :payment_method, non_null(:payment_method)
     field :locale, non_null(list_of(non_null(:locale)))
     field :buyer_id, :id
     field :seller_id, :id

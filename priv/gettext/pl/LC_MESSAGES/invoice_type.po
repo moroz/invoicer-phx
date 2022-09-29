@@ -13,8 +13,13 @@ msgstr ""
 
 ## Manually added
 msgid "Invoice"
-msgstr "Faktura VAT %{invoice_no}"
+msgstr "Faktura %{invoice_no}"
+
+## Manually added
+#, fuzzy
+msgid "VAT Invoice"
+msgstr "Faktura %{invoice_no}"
 
 ## Manually added
 msgid "Invoice (reverse charge)"
-msgstr "Faktura (odwrotne obciążenie) %{invoice_no}"
+msgstr "Faktura %{invoice_no}"

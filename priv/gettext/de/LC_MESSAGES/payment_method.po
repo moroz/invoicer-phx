@@ -11,14 +11,14 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2\n"
 
-## Manually added
-msgid "Invoice"
-msgstr "Rechnung %{invoice_no}"
+msgid "cash"
+msgstr "Bar"
 
-## Manually added
-msgid "VAT Invoice"
-msgstr "Rechnung %{invoice_no}"
+msgid "transfer"
+msgstr "Überweisung"
 
-## Manually added
-msgid "Invoice (reverse charge)"
-msgstr "Rechnung %{invoice_no}"
+msgid "credit card"
+msgstr "Kreditkarte"
+
+msgid "payment card"
+msgstr "Girokarte"

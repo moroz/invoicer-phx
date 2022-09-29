@@ -55,13 +55,17 @@
 \vspace{1cm}
 
 \begin{center}
-{\LARGE\bfseries <%= ldgettext(@first_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: @invoice.invoice_no}) %>}
+{\LARGE\bfseries <%= dgettext_with_locale(@first_locale, "invoice_type", @invoice.invoice_type, %{invoice_no: @invoice.invoice_no}) %>}
 \end{center}
 
 <%= if @second_locale do %>
   \begin{center}
-  {\large\bfseries <%= ldgettext(@second_locale, "invoice", "Invoice No. %{invoice_no}", %{invoice_no: @invoice.invoice_no}) %>}
+  {\large\bfseries <%= dgettext_with_locale(@second_locale, "invoice_type", @invoice.invoice_type, %{invoice_no: @invoice.invoice_no}) %>}
   \end{center}
+<% end %>
+
+<%= if InvoiceType.is_reverse_charge(@invoice.invoice_type) do %>
+  \begin{center}<%= bdgettext("invoice", "Reverse charge") %>\end{center}
 <% end %>
 
 \vspace{.5cm}
@@ -116,6 +120,9 @@
 \begin{minipage}{\textwidth}
 <%= if @invoice.account_no do %>
   \begin{minipage}[t]{0.45\textwidth}
+    \textbf{<%= bdgettext("invoice", "Payment method") %>}\\[2pt]
+    <%= bdgettext("payment_method", @invoice.payment_method, %{}, "/", false) %>\\
+
     \textbf{<%= bdgettext("invoice", "Account number") %>}\\[2pt]
     <%= format_plain_as_latex(@invoice.account_no) %>
   \end{minipage}%

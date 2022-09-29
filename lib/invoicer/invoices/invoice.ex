@@ -15,6 +15,8 @@ defmodule Invoicer.Invoices.Invoice do
     field :currency, :string
     field :account_no, :string
     field :locale, {:array, Invoicer.Invoices.Locale}
+    field :payment_method, Invoicer.Invoices.PaymentMethod
+    field :invoice_type, Invoicer.Invoices.InvoiceType
     belongs_to :seller, Company
     belongs_to :buyer, Company
     belongs_to :user, Invoicer.Users.User
@@ -23,7 +25,8 @@ defmodule Invoicer.Invoices.Invoice do
     timestamps()
   end
 
-  @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total buyer_id seller_id currency user_id)a
+  @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total
+    buyer_id seller_id currency user_id invoice_type payment_method)a
   @cast @required ++ [:account_no, :locale]
 
   @doc false

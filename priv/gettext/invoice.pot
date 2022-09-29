@@ -40,73 +40,77 @@ msgstr ""
 msgid "VAT ID"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:58
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:63
-#, elixir-autogen, elixir-format
-msgid "Invoice No. %{invoice_no}"
-msgstr ""
-
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:75
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:79
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:74
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:78
 #, elixir-autogen, elixir-format
 msgid "No."
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:77
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:81
 #, elixir-autogen, elixir-format
 msgid "Quantity"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:82
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:86
 #, elixir-autogen, elixir-format
 msgid "Total gross price"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:79
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:83
 #, elixir-autogen, elixir-format
 msgid "Total net price"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:76
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:80
 #, elixir-autogen, elixir-format
 msgid "Unit"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:78
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:82
 #, elixir-autogen, elixir-format
 msgid "Unit net price"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:81
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:85
 #, elixir-autogen, elixir-format
 msgid "VAT amount"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:80
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:84
 #, elixir-autogen, elixir-format
 msgid "VAT rate"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:99
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:103
 #, elixir-autogen, elixir-format
 msgid "Including"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:105
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:109
 #, elixir-autogen, elixir-format
 msgid "Total"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:124
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:131
 #, elixir-autogen, elixir-format
 msgid "To pay"
 msgstr ""
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:119
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:126
 #, elixir-autogen, elixir-format
 msgid "Account number"
+msgstr ""
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:68
+#, elixir-autogen, elixir-format
+msgid "Reverse charge"
+msgstr ""
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:123
+#, elixir-autogen, elixir-format
+msgid "Payment method"
 msgstr ""

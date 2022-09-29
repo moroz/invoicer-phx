@@ -8,17 +8,17 @@
 ## to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: de\n"
-"Plural-Forms: nplurals=2\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3\n"
 
-## Manually added
-msgid "Invoice"
-msgstr "Rechnung %{invoice_no}"
+msgid "cash"
+msgstr "gotówka"
 
-## Manually added
-msgid "VAT Invoice"
-msgstr "Rechnung %{invoice_no}"
+msgid "transfer"
+msgstr "przelew"
 
-## Manually added
-msgid "Invoice (reverse charge)"
-msgstr "Rechnung %{invoice_no}"
+msgid "credit card"
+msgstr "karta kredytowa"
+
+msgid "payment card"
+msgstr "karta płatnicza"

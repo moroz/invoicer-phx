@@ -1,22 +1,34 @@
 defmodule InvoicerWeb.TranslationHelpers do
   @context InvoicerWeb.Gettext
 
-  defmacro bdgettext(domain, key, bindings \\ %{}, separator \\ "/") do
+  defmacro bdgettext(domain, key, bindings \\ %{}, separator \\ "/", add_macro \\ true) do
     bindings = if bindings == %{}, do: Macro.escape(bindings), else: bindings
 
-    quote do
-      locales = var!(assigns)[:locale]
-      InvoicerWeb.Gettext.dgettext_noop(unquote(domain), unquote(key))
+    macro =
+      if add_macro do
+        quote do
+          InvoicerWeb.Gettext.dgettext_noop(unquote(domain), unquote(key))
+          ""
+        end
+      else
+        quote do: ""
+      end
 
-      Enum.map_join(locales, unquote(separator), fn locale ->
-        dgettext_with_locale(
-          locale,
-          unquote(domain),
-          unquote(key),
-          unquote(bindings)
-        )
-      end)
-    end
+    translation =
+      quote do
+        locales = var!(assigns)[:locale]
+
+        Enum.map_join(locales, unquote(separator), fn locale ->
+          dgettext_with_locale(
+            locale,
+            unquote(domain),
+            unquote(key),
+            unquote(bindings)
+          )
+        end)
+      end
+
+    [macro, translation]
   end
 
   defmacro ldgettext(locale, domain, key, bindings \\ %{}) do
@@ -45,7 +57,7 @@ defmodule InvoicerWeb.TranslationHelpers do
     Gettext.put_locale(@context, to_string(locale))
 
     @context
-    |> Gettext.dgettext(domain, key, bindings)
+    |> Gettext.dgettext(domain, to_string(key), bindings)
     |> ElixirLatex.LatexHelpers.escape_latex()
   end
 
