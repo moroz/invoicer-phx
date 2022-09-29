@@ -38,8 +38,8 @@
 \hfill%
 \begin{minipage}{0.45\textwidth}
   \boxentry{<%= bdgettext("invoice", "Place of issue") %>}{<%= @invoice.place_of_issue %>}
-  \boxentry{<%= bdgettext("invoice", "Date of issue") %>}{<%= @invoice.date_of_issue %>}
-  \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= @invoice.date_of_sale %>}
+  \boxentry{<%= bdgettext("invoice", "Date of issue") %>}{<%= format_date @invoice.date_of_issue %>}
+  \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= format_date @invoice.date_of_sale %>}
 \end{minipage}
 
 \vspace{3mm}

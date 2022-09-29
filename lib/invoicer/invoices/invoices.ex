@@ -36,6 +36,7 @@ defmodule Invoicer.Invoices do
 
   def get_last do
     Invoice
+    |> order_by(:inserted_at)
     |> last
     |> Repo.one()
     |> preload_assocs()
