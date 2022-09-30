@@ -77,6 +77,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :locale, non_null(list_of(non_null(:locale)))
     field :buyer_id, :id
     field :seller_id, :id
+    field :buyer, :company_params
+    field :seller, :company_params
     field :line_items, list_of(non_null(:line_item_params))
   end
 

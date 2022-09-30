@@ -25,8 +25,8 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
   describe "createInvoice mutation" do
     test "creates an invoice with valid params", ~M{user} do
-      buyer = insert(:company)
-      seller = insert(:company)
+      buyer = insert(:company, user: user)
+      seller = insert(:company, user: user)
 
       line_items = [
         %{quantity: 1, vat_rate: "NP", description: "Services", unit_net_price: "2000.00"},
@@ -34,7 +34,12 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
       ]
 
       params =
-        params_for(:invoice, buyer_id: buyer.id, seller_id: seller.id, line_items: line_items)
+        params_for(:invoice,
+          buyer_id: buyer.id,
+          seller_id: seller.id,
+          line_items: line_items,
+          invoice_type: :invoice_rc
+        )
         |> Map.drop([:gross_total, :net_total])
 
       vars = %{params: params}

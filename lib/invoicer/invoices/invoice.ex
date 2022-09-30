@@ -36,9 +36,25 @@ defmodule Invoicer.Invoices.Invoice do
     |> validate_required(@required)
     |> validate_format(:currency, ~r/^[A-Z]{3}$/, message: "must be 3-letter code")
     |> cast_assoc(:line_items, with: &LineItem.changeset/2)
+    |> set_user_id_on_company_params(:buyer)
+    |> set_user_id_on_company_params(:seller)
     |> set_line_item_positions()
     |> set_totals()
   end
+
+  defp set_user_id_on_company_params(%Ecto.Changeset{valid?: true} = changeset, field) do
+    case get_change(changeset, field) do
+      nil ->
+        changeset
+
+      %Ecto.Changeset{} = company_changeset ->
+        user_id = get_field(changeset, :user_id)
+        company_changeset = put_change(company_changeset, :user_id, user_id)
+        put_change(changeset, field, company_changeset)
+    end
+  end
+
+  defp set_user_id_on_company_params(changeset, _field), do: changeset
 
   defp set_line_item_positions(%Ecto.Changeset{valid?: true} = changeset) do
     case get_change(changeset, :line_items) do
@@ -73,7 +89,6 @@ defmodule Invoicer.Invoices.Invoice do
       items ->
         net_total = Calculator.total_net_price(items)
         gross_total = Calculator.total_gross_price(items)
-        dbg()
 
         changeset
         |> put_change(:gross_total, gross_total)

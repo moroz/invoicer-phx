@@ -61,7 +61,9 @@ defmodule Invoicer.Factory do
       place_of_issue: "Scranton, PA",
       currency: "USD",
       account_no: "PL 20 1020 2030 0000 5529 0728 9913\nBIC: BPKOPLPW",
-      locale: [:en]
+      locale: [:en],
+      payment_method: :transfer,
+      invoice_type: "Invoice"
     }
   end
 end
