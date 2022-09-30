@@ -18,8 +18,8 @@ defmodule Invoicer.Clients.Client do
   @required ~w(name address_line city vat_id postal_code user_id)a
 
   @doc false
-  def changeset(company, attrs) do
-    company
+  def changeset(client, attrs) do
+    client
     |> cast(attrs, @required)
     |> validate_required(@required)
   end

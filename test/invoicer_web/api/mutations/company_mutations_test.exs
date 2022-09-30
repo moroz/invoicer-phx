@@ -6,7 +6,7 @@ defmodule InvoicerWeb.Api.ClientMutationsTest do
   end
 
   @mutation """
-  mutation CreateClient($params: CompanyParams!) {
+  mutation CreateClient($params: ClientParams!) {
     result: createClient(params: $params) {
       success
       errors {
@@ -24,8 +24,8 @@ defmodule InvoicerWeb.Api.ClientMutationsTest do
   """
 
   describe "createClient mutation" do
-    test "creates company with valid params", ~M{user} do
-      params = params_for(:company) |> Map.drop([:user])
+    test "creates client with valid params", ~M{user} do
+      params = params_for(:client) |> Map.drop([:user])
 
       vars = %{params: params}
 

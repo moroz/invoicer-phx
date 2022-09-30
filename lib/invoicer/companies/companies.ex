@@ -22,7 +22,7 @@ defmodule Invoicer.Clients do
     |> Repo.insert()
   end
 
-  def filter_and_paginate_companies(%User{} = user, params) when is_map(params) do
+  def filter_and_paginate_clients(%User{} = user, params) when is_map(params) do
     user
     |> Client.for_user()
     |> filter_by_params(params)
