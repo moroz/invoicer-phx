@@ -4,19 +4,19 @@ defmodule Invoicer.Clients do
   alias Invoicer.Clients.Client
   alias Invoicer.Users.User
 
-  def get_user_company(user, id) do
+  def get_user_client(user, id) do
     user
     |> Client.for_user()
     |> Repo.get(id)
   end
 
-  def create_company(attrs) do
+  def create_client(attrs) do
     %Client{}
     |> Client.changeset(attrs)
     |> Repo.insert()
   end
 
-  def create_user_company(%User{} = user, attrs) do
+  def create_user_client(%User{} = user, attrs) do
     %Client{user_id: user.id}
     |> Client.changeset(attrs)
     |> Repo.insert()

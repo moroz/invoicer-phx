@@ -4,7 +4,7 @@ defmodule Invoicer.Clients.Client do
   import Ecto.Query
   alias Invoicer.Users.User
 
-  schema "companies" do
+  schema "clients" do
     field :address_line, :string
     field :city, :string
     field :name, :string
