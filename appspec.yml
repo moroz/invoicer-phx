@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /tmp/deploy
+
+hooks:
+  AfterInstall:
+    - location: restart-docker-services.sh
+      runas: ubuntu
