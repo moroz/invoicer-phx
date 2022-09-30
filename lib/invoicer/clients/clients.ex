@@ -10,10 +10,22 @@ defmodule Invoicer.Clients do
     |> Repo.get(id)
   end
 
+  def get_user_client!(user, id) do
+    user
+    |> Client.for_user()
+    |> Repo.get!(id)
+  end
+
   def create_client(attrs) do
     %Client{}
     |> Client.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def update_client(client, attrs) do
+    client
+    |> Client.changeset(attrs)
+    |> Repo.update()
   end
 
   def create_user_client(%User{} = user, attrs) do

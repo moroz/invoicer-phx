@@ -52,5 +52,11 @@ defmodule InvoicerWeb.Api.ClientTypes do
       arg(:params, non_null(:client_params))
       resolve(&ClientResolvers.create_client/2)
     end
+
+    field :update_client, non_null(:client_mutation_result) do
+      arg(:id, non_null(:id))
+      arg(:params, non_null(:client_params))
+      resolve(&ClientResolvers.update_client/2)
+    end
   end
 end
