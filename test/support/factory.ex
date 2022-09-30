@@ -51,10 +51,12 @@ defmodule Invoicer.Factory do
   end
 
   def invoice_factory do
+    user = insert(:user)
+
     %Invoicer.Invoices.Invoice{
-      user: build(:user),
-      seller: build(:company),
-      buyer: build(:company),
+      user: user,
+      seller: build(:company, user: user),
+      buyer: build(:company, user: user),
       invoice_no: sequence(:invoice_no, &invoice_no/1),
       date_of_issue: Date.utc_today(),
       date_of_sale: Date.utc_today(),

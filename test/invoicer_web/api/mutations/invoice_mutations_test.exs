@@ -40,7 +40,7 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
           line_items: line_items,
           invoice_type: :invoice_rc
         )
-        |> Map.drop([:gross_total, :net_total])
+        |> Map.drop([:gross_total, :net_total, :user_id])
 
       vars = %{params: params}
 
