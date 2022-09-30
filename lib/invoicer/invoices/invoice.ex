@@ -1,8 +1,8 @@
 defmodule Invoicer.Invoices.Invoice do
   use Invoicer.Schema
   import Ecto.Changeset
-  alias Invoicer.Companies
-  alias Invoicer.Companies.Company
+  alias Invoicer.Clients
+  alias Invoicer.Clients.Client
   alias Invoicer.LineItems.LineItem
   alias Invoicer.Invoices.Calculator
 
@@ -18,8 +18,8 @@ defmodule Invoicer.Invoices.Invoice do
     field :locale, {:array, Invoicer.Invoices.Locale}
     field :payment_method, Invoicer.Invoices.PaymentMethod
     field :invoice_type, Invoicer.Invoices.InvoiceType
-    belongs_to :seller, Company
-    belongs_to :buyer, Company
+    belongs_to :seller, Client
+    belongs_to :buyer, Client
     belongs_to :user, Invoicer.Users.User
     has_many :line_items, LineItem, on_replace: :delete
 
@@ -37,27 +37,27 @@ defmodule Invoicer.Invoices.Invoice do
     |> validate_required(@required)
     |> validate_format(:currency, ~r/^[A-Z]{3}$/, message: "must be 3-letter code")
     |> cast_assoc(:line_items, with: &LineItem.changeset/2)
-    |> set_user_id_on_company_params(:buyer)
-    |> set_user_id_on_company_params(:seller)
+    |> set_user_id_on_client_params(:buyer)
+    |> set_user_id_on_client_params(:seller)
     |> validate_user_matches(:buyer_id)
     |> validate_user_matches(:seller_id)
     |> set_line_item_positions()
     |> set_totals()
   end
 
-  defp set_user_id_on_company_params(%Ecto.Changeset{valid?: true} = changeset, field) do
+  defp set_user_id_on_client_params(%Ecto.Changeset{valid?: true} = changeset, field) do
     case get_change(changeset, field) do
       nil ->
         changeset
 
-      %Ecto.Changeset{} = company_changeset ->
+      %Ecto.Changeset{} = client_changeset ->
         user_id = get_field(changeset, :user_id)
-        company_changeset = put_change(company_changeset, :user_id, user_id)
-        put_change(changeset, field, company_changeset)
+        client_changeset = put_change(client_changeset, :user_id, user_id)
+        put_change(changeset, field, client_changeset)
     end
   end
 
-  defp set_user_id_on_company_params(changeset, _field), do: changeset
+  defp set_user_id_on_client_params(changeset, _field), do: changeset
 
   defp set_line_item_positions(%Ecto.Changeset{valid?: true} = changeset) do
     case get_change(changeset, :line_items) do
@@ -109,11 +109,11 @@ defmodule Invoicer.Invoices.Invoice do
         changeset
 
       id ->
-        case Companies.get_user_company(user_id, id) do
+        case Clients.get_user_client(user_id, id) do
           nil ->
-            add_error(changeset, field, "company does not exist")
+            add_error(changeset, field, "client does not exist")
 
-          %Company{} ->
+          %Client{} ->
             changeset
         end
     end

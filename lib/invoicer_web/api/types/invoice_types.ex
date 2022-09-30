@@ -52,11 +52,11 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :seller_id, non_null(:id)
     field :buyer_id, non_null(:id)
 
-    field :buyer, non_null(:company) do
+    field :buyer, non_null(:client) do
       lazy_preload()
     end
 
-    field :seller, non_null(:company) do
+    field :seller, non_null(:client) do
       lazy_preload()
     end
   end
@@ -77,8 +77,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :locale, non_null(list_of(non_null(:locale)))
     field :buyer_id, :id
     field :seller_id, :id
-    field :buyer, :company_params
-    field :seller, :company_params
+    field :buyer, :client_params
+    field :seller, :client_params
     field :line_items, list_of(non_null(:line_item_params))
   end
 

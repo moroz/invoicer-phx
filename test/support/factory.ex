@@ -30,8 +30,8 @@ defmodule Invoicer.Factory do
     }
   end
 
-  def company_factory do
-    %Invoicer.Companies.Company{
+  def client_factory do
+    %Invoicer.Clients.Client{
       user: build(:user),
       name: "Dunder Mifflin Paper Inc.",
       city: "Scranton, PA",
@@ -56,8 +56,8 @@ defmodule Invoicer.Factory do
 
     %Invoicer.Invoices.Invoice{
       user: user,
-      seller: build(:company, user: user),
-      buyer: build(:company, user: user),
+      seller: build(:client, user: user),
+      buyer: build(:client, user: user),
       invoice_no: sequence(:invoice_no, &invoice_no/1),
       date_of_issue: Date.utc_today(),
       date_of_sale: Date.utc_today(),

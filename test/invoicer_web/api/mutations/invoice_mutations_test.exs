@@ -40,8 +40,8 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
   describe "createInvoice mutation" do
     test "creates an invoice with valid params", ~M{user} do
-      buyer = insert(:company, user: user)
-      seller = insert(:company, user: user)
+      buyer = insert(:client, user: user)
+      seller = insert(:client, user: user)
 
       params =
         params_for(:invoice,
@@ -62,8 +62,8 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
     end
 
     test "does not create an invoice if the user does not own one of the parties", ~M{user} do
-      buyer = insert(:company)
-      seller = insert(:company, user: user)
+      buyer = insert(:client)
+      seller = insert(:client, user: user)
 
       params =
         params_for(:invoice,

@@ -1,10 +1,10 @@
-defmodule Invoicer.Companies.Company do
+defmodule Invoicer.Clients.Client do
   use Invoicer.Schema
   import Ecto.Changeset
   import Ecto.Query
   alias Invoicer.Users.User
 
-  schema "companies" do
+  schema "clients" do
     field :address_line, :string
     field :city, :string
     field :name, :string
@@ -18,8 +18,8 @@ defmodule Invoicer.Companies.Company do
   @required ~w(name address_line city vat_id postal_code user_id)a
 
   @doc false
-  def changeset(company, attrs) do
-    company
+  def changeset(client, attrs) do
+    client
     |> cast(attrs, @required)
     |> validate_required(@required)
   end

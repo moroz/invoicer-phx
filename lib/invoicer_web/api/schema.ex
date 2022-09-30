@@ -3,7 +3,7 @@ defmodule InvoicerWeb.Api.Schema do
 
   import_types(Absinthe.Type.Custom)
   import_types(InvoicerWeb.Api.InvoiceTypes)
-  import_types(InvoicerWeb.Api.CompanyTypes)
+  import_types(InvoicerWeb.Api.ClientTypes)
   import_types(InvoicerWeb.Api.UserTypes)
   import_types(GraphQLTools.ErrorTypes)
   import_types(GraphQLTools.PaginationTypes)
@@ -11,12 +11,12 @@ defmodule InvoicerWeb.Api.Schema do
   query do
     import_fields(:invoice_queries)
     import_fields(:user_queries)
-    import_fields(:company_queries)
+    import_fields(:client_queries)
   end
 
   mutation do
     import_fields(:invoice_mutations)
-    import_fields(:company_mutations)
+    import_fields(:client_mutations)
     import_fields(:user_mutations)
   end
 

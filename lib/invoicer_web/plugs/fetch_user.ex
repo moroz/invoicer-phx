@@ -19,7 +19,7 @@ defmodule InvoicerWeb.Plug.FetchUser do
   defp get_user_from_conn(conn) do
     case get_session(conn, :user_id) do
       id when is_binary(id) ->
-        Users.get_user!(id)
+        Users.get_user(id)
 
       _ ->
         nil

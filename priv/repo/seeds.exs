@@ -12,8 +12,8 @@
 #
 
 alias Invoicer.Repo
-alias Invoicer.Companies
-alias Invoicer.Companies.Company
+alias Invoicer.Clients
+alias Invoicer.Clients.Client
 alias Invoicer.Invoices
 alias Invoicer.Invoices.Invoice
 alias Invoicer.LineItems
@@ -25,7 +25,7 @@ Repo.transaction(fn ->
   Repo.delete_all(User)
   Repo.delete_all(LineItem)
   Repo.delete_all(Invoice)
-  Repo.delete_all(Company)
+  Repo.delete_all(Client)
 
   {:ok, user} =
     Users.create_user(%{
@@ -35,7 +35,7 @@ Repo.transaction(fn ->
     })
 
   {:ok, buyer} =
-    Companies.create_company(%{
+    Clients.create_client(%{
       name: "ACME Corp.",
       city: "New York",
       postal_code: "12345",
@@ -45,7 +45,7 @@ Repo.transaction(fn ->
     })
 
   {:ok, seller} =
-    Companies.create_company(%{
+    Clients.create_client(%{
       name: "Satorisoft Bank",
       city: "Tokyo",
       postal_code: "00-819",

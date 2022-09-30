@@ -1,4 +1,4 @@
-defmodule InvoicerWeb.Api.CompanyMutationsTest do
+defmodule InvoicerWeb.Api.ClientMutationsTest do
   use InvoicerWeb.GraphQLCase
 
   setup do
@@ -6,8 +6,8 @@ defmodule InvoicerWeb.Api.CompanyMutationsTest do
   end
 
   @mutation """
-  mutation CreateCompany($params: CompanyParams!) {
-    result: createCompany(params: $params) {
+  mutation CreateClient($params: ClientParams!) {
+    result: createClient(params: $params) {
       success
       errors {
         key
@@ -23,9 +23,9 @@ defmodule InvoicerWeb.Api.CompanyMutationsTest do
   }
   """
 
-  describe "createCompany mutation" do
-    test "creates company with valid params", ~M{user} do
-      params = params_for(:company) |> Map.drop([:user])
+  describe "createClient mutation" do
+    test "creates client with valid params", ~M{user} do
+      params = params_for(:client) |> Map.drop([:user])
 
       vars = %{params: params}
 
