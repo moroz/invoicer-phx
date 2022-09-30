@@ -1,6 +1,7 @@
 defmodule Invoicer.Invoices.Invoice do
   use Invoicer.Schema
   import Ecto.Changeset
+  alias Invoicer.Companies
   alias Invoicer.Companies.Company
   alias Invoicer.LineItems.LineItem
   alias Invoicer.Invoices.Calculator
@@ -38,6 +39,8 @@ defmodule Invoicer.Invoices.Invoice do
     |> cast_assoc(:line_items, with: &LineItem.changeset/2)
     |> set_user_id_on_company_params(:buyer)
     |> set_user_id_on_company_params(:seller)
+    |> validate_user_matches(:buyer_id)
+    |> validate_user_matches(:seller_id)
     |> set_line_item_positions()
     |> set_totals()
   end
@@ -97,4 +100,24 @@ defmodule Invoicer.Invoices.Invoice do
   end
 
   defp set_totals(changeset), do: changeset
+
+  defp validate_user_matches(%Ecto.Changeset{valid?: true} = changeset, field) do
+    user_id = get_field(changeset, :user_id)
+
+    case get_change(changeset, field) do
+      nil ->
+        changeset
+
+      id ->
+        case Companies.get_user_company(user_id, id) do
+          nil ->
+            add_error(changeset, field, "company does not exist")
+
+          %Company{} ->
+            changeset
+        end
+    end
+  end
+
+  defp validate_user_matches(changeset, _field), do: changeset
 end

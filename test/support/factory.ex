@@ -32,6 +32,7 @@ defmodule Invoicer.Factory do
 
   def company_factory do
     %Invoicer.Companies.Company{
+      user: build(:user),
       name: "Dunder Mifflin Paper Inc.",
       city: "Scranton, PA",
       postal_code: "18503",

@@ -24,7 +24,13 @@ defmodule Invoicer.Companies.Company do
     |> validate_required(@required)
   end
 
-  def for_user(queryable \\ __MODULE__, %User{} = user) do
+  def for_user(queryable \\ __MODULE__, user)
+
+  def for_user(queryable, %User{} = user) do
     where(queryable, [c], c.user_id == ^user.id)
+  end
+
+  def for_user(queryable, user_id) when is_binary(user_id) do
+    where(queryable, [c], c.user_id == ^user_id)
   end
 end

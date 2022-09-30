@@ -4,6 +4,12 @@ defmodule Invoicer.Companies do
   alias Invoicer.Companies.Company
   alias Invoicer.Users.User
 
+  def get_user_company(user, id) do
+    user
+    |> Company.for_user()
+    |> Repo.get(id)
+  end
+
   def create_company(attrs) do
     %Company{}
     |> Company.changeset(attrs)

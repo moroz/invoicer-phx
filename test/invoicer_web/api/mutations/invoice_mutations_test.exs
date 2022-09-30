@@ -23,21 +23,31 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
   }
   """
 
+  @line_items [
+    %{
+      quantity: 1,
+      vat_rate: "NP",
+      description: "Services",
+      unit_net_price: "2000.00"
+    },
+    %{
+      quantity: 5,
+      vat_rate: "TWENTY_THREE",
+      description: "Hamburger",
+      unit_net_price: 5
+    }
+  ]
+
   describe "createInvoice mutation" do
     test "creates an invoice with valid params", ~M{user} do
       buyer = insert(:company, user: user)
       seller = insert(:company, user: user)
 
-      line_items = [
-        %{quantity: 1, vat_rate: "NP", description: "Services", unit_net_price: "2000.00"},
-        %{quantity: 5, vat_rate: "TWENTY_THREE", description: "Hamburger", unit_net_price: 5}
-      ]
-
       params =
         params_for(:invoice,
           buyer_id: buyer.id,
           seller_id: seller.id,
-          line_items: line_items,
+          line_items: @line_items,
           invoice_type: :invoice_rc
         )
         |> Map.drop([:gross_total, :net_total, :user_id])
@@ -49,6 +59,27 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
       assert actual["grossTotal"] == "2030.75"
       assert actual["netTotal"] == "2025.00"
+    end
+
+    test "does not create an invoice if the user does not own one of the parties", ~M{user} do
+      buyer = insert(:company)
+      seller = insert(:company, user: user)
+
+      params =
+        params_for(:invoice,
+          buyer_id: buyer.id,
+          seller_id: seller.id,
+          line_items: @line_items,
+          invoice_type: :invoice_rc
+        )
+        |> Map.drop([:gross_total, :net_total, :user_id])
+
+      vars = %{params: params}
+
+      %{"result" => %{"success" => false, "errors" => [error], "data" => nil}} =
+        mutate_with_user(@mutation, user, vars)
+
+      assert error["message"] =~ ~r/does not exist/i
     end
   end
 end
