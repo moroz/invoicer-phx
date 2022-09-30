@@ -9,4 +9,8 @@ defmodule InvoicerWeb.Api.CompanyResolvers do
   def create_company(~M{params}, %{context: %{current_user: user}}) do
     Companies.create_user_company(user, params)
   end
+
+  def get_company(~M{id}, %{context: %{current_user: user}}) do
+    {:ok, Companies.get_user_company(user, id)}
+  end
 end

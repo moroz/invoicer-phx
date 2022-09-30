@@ -38,6 +38,12 @@ defmodule InvoicerWeb.Api.CompanyTypes do
     field :paginate_companies, non_null(:company_page) do
       arg(:params, non_null(:company_filter_params))
       resolve(&CompanyResolvers.filter_and_paginate_companies/2)
+      middleware(GraphQLTools.FormatPage)
+    end
+
+    field :company, :company do
+      arg(:id, non_null(:id))
+      resolve(&CompanyResolvers.get_company/2)
     end
   end
 

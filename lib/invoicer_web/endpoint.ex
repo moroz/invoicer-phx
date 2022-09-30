@@ -7,7 +7,8 @@ defmodule InvoicerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_invoicer_key",
-    signing_salt: "VoAwvuS9"
+    signing_salt: "VoAwvuS9",
+    extra: "SameSite=None"
   ]
 
   # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
