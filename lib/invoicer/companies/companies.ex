@@ -1,30 +1,30 @@
-defmodule Invoicer.Companies do
+defmodule Invoicer.Clients do
   import Ecto.Query, warn: false
   alias Invoicer.Repo
-  alias Invoicer.Companies.Company
+  alias Invoicer.Clients.Client
   alias Invoicer.Users.User
 
   def get_user_company(user, id) do
     user
-    |> Company.for_user()
+    |> Client.for_user()
     |> Repo.get(id)
   end
 
   def create_company(attrs) do
-    %Company{}
-    |> Company.changeset(attrs)
+    %Client{}
+    |> Client.changeset(attrs)
     |> Repo.insert()
   end
 
   def create_user_company(%User{} = user, attrs) do
-    %Company{user_id: user.id}
-    |> Company.changeset(attrs)
+    %Client{user_id: user.id}
+    |> Client.changeset(attrs)
     |> Repo.insert()
   end
 
   def filter_and_paginate_companies(%User{} = user, params) when is_map(params) do
     user
-    |> Company.for_user()
+    |> Client.for_user()
     |> filter_by_params(params)
     |> Repo.paginate(params)
   end

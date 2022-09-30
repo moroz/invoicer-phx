@@ -1,8 +1,8 @@
 defmodule Invoicer.Invoices.Invoice do
   use Invoicer.Schema
   import Ecto.Changeset
-  alias Invoicer.Companies
-  alias Invoicer.Companies.Company
+  alias Invoicer.Clients
+  alias Invoicer.Clients.Client
   alias Invoicer.LineItems.LineItem
   alias Invoicer.Invoices.Calculator
 
@@ -18,8 +18,8 @@ defmodule Invoicer.Invoices.Invoice do
     field :locale, {:array, Invoicer.Invoices.Locale}
     field :payment_method, Invoicer.Invoices.PaymentMethod
     field :invoice_type, Invoicer.Invoices.InvoiceType
-    belongs_to :seller, Company
-    belongs_to :buyer, Company
+    belongs_to :seller, Client
+    belongs_to :buyer, Client
     belongs_to :user, Invoicer.Users.User
     has_many :line_items, LineItem, on_replace: :delete
 
@@ -109,11 +109,11 @@ defmodule Invoicer.Invoices.Invoice do
         changeset
 
       id ->
-        case Companies.get_user_company(user_id, id) do
+        case Clients.get_user_company(user_id, id) do
           nil ->
             add_error(changeset, field, "company does not exist")
 
-          %Company{} ->
+          %Client{} ->
             changeset
         end
     end

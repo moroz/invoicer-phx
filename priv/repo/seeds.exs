@@ -13,7 +13,7 @@
 
 alias Invoicer.Repo
 alias Invoicer.Companies
-alias Invoicer.Companies.Company
+alias Invoicer.Companies.Client
 alias Invoicer.Invoices
 alias Invoicer.Invoices.Invoice
 alias Invoicer.LineItems
@@ -25,7 +25,7 @@ Repo.transaction(fn ->
   Repo.delete_all(User)
   Repo.delete_all(LineItem)
   Repo.delete_all(Invoice)
-  Repo.delete_all(Company)
+  Repo.delete_all(Client)
 
   {:ok, user} =
     Users.create_user(%{

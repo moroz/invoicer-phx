@@ -1,7 +1,7 @@
-defmodule InvoicerWeb.Api.CompanyTypes do
+defmodule InvoicerWeb.Api.ClientTypes do
   use Absinthe.Schema.Notation
   import GraphQLTools.SchemaHelpers
-  alias InvoicerWeb.Api.CompanyResolvers
+  alias InvoicerWeb.Api.ClientResolvers
 
   object :company do
     field :id, non_null(:id)
@@ -37,20 +37,20 @@ defmodule InvoicerWeb.Api.CompanyTypes do
   object :company_queries do
     field :paginate_companies, non_null(:company_page) do
       arg(:params, non_null(:company_filter_params))
-      resolve(&CompanyResolvers.filter_and_paginate_companies/2)
+      resolve(&ClientResolvers.filter_and_paginate_companies/2)
       middleware(GraphQLTools.FormatPage)
     end
 
     field :company, :company do
       arg(:id, non_null(:id))
-      resolve(&CompanyResolvers.get_company/2)
+      resolve(&ClientResolvers.get_company/2)
     end
   end
 
   object :company_mutations do
     field :create_company, non_null(:company_mutation_result) do
       arg(:params, non_null(:company_params))
-      resolve(&CompanyResolvers.create_company/2)
+      resolve(&ClientResolvers.create_company/2)
     end
   end
 end

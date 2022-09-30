@@ -3,7 +3,7 @@ defmodule InvoicerWeb.Api.Schema do
 
   import_types(Absinthe.Type.Custom)
   import_types(InvoicerWeb.Api.InvoiceTypes)
-  import_types(InvoicerWeb.Api.CompanyTypes)
+  import_types(InvoicerWeb.Api.ClientTypes)
   import_types(InvoicerWeb.Api.UserTypes)
   import_types(GraphQLTools.ErrorTypes)
   import_types(GraphQLTools.PaginationTypes)

@@ -1,4 +1,4 @@
-defmodule Invoicer.Companies.Company do
+defmodule Invoicer.Clients.Client do
   use Invoicer.Schema
   import Ecto.Changeset
   import Ecto.Query

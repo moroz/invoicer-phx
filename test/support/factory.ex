@@ -31,7 +31,7 @@ defmodule Invoicer.Factory do
   end
 
   def company_factory do
-    %Invoicer.Companies.Company{
+    %Invoicer.Clients.Client{
       user: build(:user),
       name: "Dunder Mifflin Paper Inc.",
       city: "Scranton, PA",
