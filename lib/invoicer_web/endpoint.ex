@@ -1,7 +1,9 @@
 defmodule InvoicerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :invoicer
 
-  @same_site if Mix.env() in [:prod, :staging], do: [extra: "SameSite=None"], else: []
+  @cookie_opts if Mix.env() in [:prod, :staging],
+                 do: [extra: "SameSite=None", secure: true],
+                 else: []
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -10,7 +12,7 @@ defmodule InvoicerWeb.Endpoint do
                      store: :cookie,
                      key: "_invoicer_key",
                      signing_salt: "VoAwvuS9"
-                   ] ++ @same_site
+                   ] ++ @cookie_opts
 
   # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
