@@ -10,17 +10,21 @@ defmodule Invoicer.Clients.Client do
     field :name, :string
     field :postal_code, :string
     field :vat_id, :string
+    field :bank_name, :string
+    field :bic_code, :string
+    field :account_no, :string
     belongs_to :user, Invoicer.Users.User
 
     timestamps()
   end
 
   @required ~w(name address_line city vat_id postal_code user_id)a
+  @cast @required ++ ~w(account_no bic_code bank_name)a
 
   @doc false
   def changeset(client, attrs) do
     client
-    |> cast(attrs, @required)
+    |> cast(attrs, @cast)
     |> validate_required(@required)
   end
 
