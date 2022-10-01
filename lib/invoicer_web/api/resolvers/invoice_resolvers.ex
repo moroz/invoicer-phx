@@ -9,4 +9,8 @@ defmodule InvoicerWeb.Api.InvoiceResolvers do
   def create_invoice(~M{params}, %{context: %{current_user: user}}) do
     Invoices.create_user_invoice(user, params)
   end
+
+  def filter_and_paginate_invoices(~M{params}, %{context: %{current_user: user}}) do
+    {:ok, Invoices.filter_and_paginate_invoices(user, params)}
+  end
 end

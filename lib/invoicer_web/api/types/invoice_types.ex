@@ -89,10 +89,24 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :vat_rate, non_null(:vat_rate)
   end
 
+  object :invoice_page do
+    pagination_fields(:invoice)
+  end
+
+  input_object :invoice_filter_params do
+    standard_pagination_params()
+  end
+
   object :invoice_queries do
     field :invoice, :invoice do
       arg(:id, non_null(:id))
       resolve(&InvoiceResolvers.get_invoice/2)
+    end
+
+    field :paginate_invoices, :invoice_page do
+      arg(:params, non_null(:invoice_filter_params))
+      resolve(&InvoiceResolvers.filter_and_paginate_invoices/2)
+      middleware(GraphQLTools.FormatPage)
     end
   end
 
