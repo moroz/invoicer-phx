@@ -1,6 +1,7 @@
 defmodule InvoicerWeb.Router do
   use InvoicerWeb, :router
   alias InvoicerWeb.Plug.FetchUser
+  alias InvoicerWeb.Plug.RestrictAccess
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,12 @@ defmodule InvoicerWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_restricted do
+    plug :browser
+    plug FetchUser
+    plug RestrictAccess
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
     plug :fetch_session
@@ -18,10 +25,9 @@ defmodule InvoicerWeb.Router do
   end
 
   scope "/", InvoicerWeb do
-    pipe_through :browser
+    pipe_through :browser_restricted
 
-    get "/", PageController, :index
-    get "/invoice", InvoiceTestController, :index
+    get "/invoices/:id", InvoiceController, :show
   end
 
   scope "/api" do

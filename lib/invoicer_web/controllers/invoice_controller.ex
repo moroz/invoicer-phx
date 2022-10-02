@@ -1,11 +1,12 @@
-defmodule InvoicerWeb.InvoiceTestController do
+defmodule InvoicerWeb.InvoiceController do
   use InvoicerWeb, :controller
   alias InvoicerWeb.InvoiceDocument
-
   alias Invoicer.Invoices
 
-  def index(conn, _params) do
-    invoice = Invoices.get_last()
+  import ShorterMaps
+
+  def show(conn, ~m{id}) do
+    invoice = Invoices.get_user_invoice(conn.assigns.current_user, id)
 
     case InvoiceDocument.generate(invoice) do
       {:ok, pdf} ->
