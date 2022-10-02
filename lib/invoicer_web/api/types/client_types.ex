@@ -10,6 +10,9 @@ defmodule InvoicerWeb.Api.ClientTypes do
     field :name, non_null(:string)
     field :postal_code, :string
     field :vat_id, non_null(:string)
+    field :bank_name, :string
+    field :bic_code, :string
+    field :account_no, :string
 
     timestamps()
   end
@@ -20,6 +23,9 @@ defmodule InvoicerWeb.Api.ClientTypes do
     field :name, non_null(:string)
     field :postal_code, :string
     field :vat_id, non_null(:string)
+    field :bank_name, :string
+    field :bic_code, :string
+    field :account_no, :string
   end
 
   object :client_page do

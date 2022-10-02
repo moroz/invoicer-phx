@@ -6,6 +6,6 @@
     <%= @client.name %>\\
     <%= bdgettext("invoice", "VAT ID") %>: <%= @client.vat_id %>\\
     <%= @client.address_line %>\\
-    <%= @client.postal_code %> <%= @company.city %>
+    <%= @client.postal_code %> <%= @client.city %>
   \end{minipage}
 \end{minipage}%

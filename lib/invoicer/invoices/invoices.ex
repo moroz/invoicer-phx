@@ -23,6 +23,26 @@ defmodule Invoicer.Invoices do
     |> Repo.insert()
   end
 
+  def filter_and_paginate_invoices(%User{} = user, params) do
+    user
+    |> Ecto.assoc(:invoices)
+    |> preload(:buyer)
+    |> order_by(desc: :invoice_no, desc: :inserted_at)
+    |> filter_by_params(params)
+    |> Repo.paginate(params)
+  end
+
+  defp filter_by_params(query, params) do
+    Enum.reduce(params, query, &do_filter_by_params/2)
+  end
+
+  defp do_filter_by_params({:q, term}, query) do
+    ilike_clause = "%#{term}%"
+    where(query, [i], ilike(i.invoice, ^ilike_clause))
+  end
+
+  defp do_filter_by_params(_, query), do: query
+
   def preload_assocs(invoice) do
     line_items_query = order_by(LineItem, :position)
     Repo.preload(invoice, [:buyer, :seller, line_items: line_items_query])

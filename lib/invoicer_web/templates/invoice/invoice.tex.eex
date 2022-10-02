@@ -46,9 +46,9 @@
 
 \begin{adjustbox}{center}
 \begin{minipage}[c]{\textwidth}
-<%= render("_client.tex", company: @seller, header: bdgettext("invoice", "Seller"), locale: @locale) %>%
+<%= render("_client.tex", client: @seller, header: bdgettext("invoice", "Seller"), locale: @locale) %>%
 \hfill%
-<%= render("_client.tex", company: @buyer, header: bdgettext("invoice", "Buyer"), locale: @locale) %>
+<%= render("_client.tex", client: @buyer, header: bdgettext("invoice", "Buyer"), locale: @locale) %>
 \end{minipage}
 \end{adjustbox}
 
