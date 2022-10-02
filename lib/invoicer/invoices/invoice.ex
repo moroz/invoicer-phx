@@ -27,8 +27,8 @@ defmodule Invoicer.Invoices.Invoice do
   end
 
   @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total
-    buyer_id seller_id currency user_id invoice_type payment_method)a
-  @cast @required ++ [:account_no, :locale]
+    currency user_id invoice_type payment_method)a
+  @cast @required ++ [:account_no, :locale, :buyer_id, :seller_id]
 
   @doc false
   def changeset(invoice, attrs) do
@@ -37,12 +37,15 @@ defmodule Invoicer.Invoices.Invoice do
     |> validate_required(@required)
     |> validate_format(:currency, ~r/^[A-Z]{3}$/, message: "must be 3-letter code")
     |> cast_assoc(:line_items, with: &LineItem.changeset/2)
+    |> cast_assoc(:buyer, with: &Client.changeset/2)
+    |> cast_assoc(:seller, with: &Client.changeset/2)
     |> set_user_id_on_client_params(:buyer)
     |> set_user_id_on_client_params(:seller)
     |> validate_user_matches(:buyer_id)
     |> validate_user_matches(:seller_id)
     |> set_line_item_positions()
     |> set_totals()
+    |> dbg()
   end
 
   defp set_user_id_on_client_params(%Ecto.Changeset{valid?: true} = changeset, field) do

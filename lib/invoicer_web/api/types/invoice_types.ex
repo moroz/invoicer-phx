@@ -84,6 +84,7 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
 
   input_object :line_item_params do
     field :description, non_null(:string)
+    field :unit, :string
     field :quantity, non_null(:decimal), default_value: Decimal.new(1)
     field :unit_net_price, non_null(:decimal)
     field :vat_rate, non_null(:vat_rate)

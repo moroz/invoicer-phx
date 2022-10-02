@@ -18,8 +18,9 @@ defmodule Invoicer.Clients.Client do
     timestamps()
   end
 
-  @required ~w(name address_line city vat_id postal_code user_id)a
-  @cast @required ++ ~w(account_no bic_code bank_name)a
+  @required ~w(name)a
+  @cast @required ++
+          ~w(account_no bic_code bank_name user_id address_line postal_code vat_id city)a
 
   @doc false
   def changeset(client, attrs) do
