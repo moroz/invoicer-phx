@@ -5,11 +5,11 @@ defmodule InvoicerWeb.Api.ClientTypes do
 
   object :client do
     field :id, non_null(:id)
-    field :address_line, non_null(:string)
-    field :city, non_null(:string)
-    field :name, non_null(:string)
+    field :address_line, :string
+    field :city, :string
+    field :name, :string
     field :postal_code, :string
-    field :vat_id, non_null(:string)
+    field :vat_id, :string
     field :bank_name, :string
     field :bic_code, :string
     field :account_no, :string
@@ -18,11 +18,11 @@ defmodule InvoicerWeb.Api.ClientTypes do
   end
 
   input_object :client_params do
-    field :address_line, non_null(:string)
-    field :city, non_null(:string)
+    field :address_line, :string
+    field :city, :string
     field :name, non_null(:string)
     field :postal_code, :string
-    field :vat_id, non_null(:string)
+    field :vat_id, :string
     field :bank_name, :string
     field :bic_code, :string
     field :account_no, :string
