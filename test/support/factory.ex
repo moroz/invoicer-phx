@@ -37,6 +37,8 @@ defmodule Invoicer.Factory do
       city: "Scranton, PA",
       postal_code: "18503",
       vat_id: "US123456789",
+      account_no: "PL 20 1020 2030 0000 5529 0728 9913",
+      bic_code: "BPKOPLPW",
       address_line: "201 Lackawanna Ave"
     }
   end
@@ -63,7 +65,6 @@ defmodule Invoicer.Factory do
       date_of_sale: Date.utc_today(),
       place_of_issue: "Scranton, PA",
       currency: "USD",
-      account_no: "PL 20 1020 2030 0000 5529 0728 9913\nBIC: BPKOPLPW",
       locale: [:en],
       payment_method: :transfer,
       invoice_type: "Invoice"

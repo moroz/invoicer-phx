@@ -14,7 +14,6 @@ defmodule Invoicer.Invoices.Invoice do
     field :invoice_no, :string
     field :place_of_issue, :string
     field :currency, :string
-    field :account_no, :string
     field :locale, {:array, Invoicer.Invoices.Locale}
     field :payment_method, Invoicer.Invoices.PaymentMethod
     field :invoice_type, Invoicer.Invoices.InvoiceType
@@ -28,7 +27,7 @@ defmodule Invoicer.Invoices.Invoice do
 
   @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total
     currency user_id invoice_type payment_method)a
-  @cast @required ++ [:account_no, :locale, :buyer_id, :seller_id]
+  @cast @required ++ [:locale, :buyer_id, :seller_id]
 
   @doc false
   def changeset(invoice, attrs) do
@@ -45,7 +44,6 @@ defmodule Invoicer.Invoices.Invoice do
     |> validate_user_matches(:seller_id)
     |> set_line_item_positions()
     |> set_totals()
-    |> dbg()
   end
 
   defp set_user_id_on_client_params(%Ecto.Changeset{valid?: true} = changeset, field) do
