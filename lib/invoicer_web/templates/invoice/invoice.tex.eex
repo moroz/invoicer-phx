@@ -88,8 +88,8 @@
 
       <%= for {row, index} <- Enum.with_index(@invoice.line_items) do %>
         \multicolumn{1}{|c|}{\small <%= index + 1 %>} &
-        \multicolumn{1}{>{\raggedright\arraybackslash}p{\descriptionwidth}|}{\small <%= row.description %>} &
-        \multicolumn{1}{c|}{\small <%= row.unit %>} &
+        \multicolumn{1}{>{\raggedright\arraybackslash}p{\descriptionwidth}|}{\small <%= escape_latex row.description %>} &
+        \multicolumn{1}{c|}{\small <%= escape_latex row.unit %>} &
         \multicolumn{1}{c|}{\small <%= row.quantity %>} &
         \multicolumn{1}{c|}{\small <%= format_price row.unit_net_price %>} &
         \small <%= format_price Calculator.total_net_price(row) %> &
