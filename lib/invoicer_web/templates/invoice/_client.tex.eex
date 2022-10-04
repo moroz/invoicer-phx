@@ -3,9 +3,9 @@
   \begin{minipage}{\textwidth}
     \vspace{3pt}
     \setlength\leftskip{2pt}
-    <%= @client.name %>\\
+    <%= escape_latex @client.name %>\\
     <%= bdgettext("invoice", "VAT ID") %>: <%= @client.vat_id %>\\
-    <%= @client.address_line %>\\
-    <%= @client.postal_code %> <%= @client.city %>
+    <%= escape_latex @client.address_line %>\\
+    <%= escape_latex @client.postal_code %> <%= escape_latex @client.city %>
   \end{minipage}
 \end{minipage}%

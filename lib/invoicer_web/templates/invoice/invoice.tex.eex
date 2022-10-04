@@ -37,7 +37,7 @@
 
 \hfill%
 \begin{minipage}{0.45\textwidth}
-  \boxentry{<%= bdgettext("invoice", "Place of issue") %>}{<%= @invoice.place_of_issue %>}
+  \boxentry{<%= bdgettext("invoice", "Place of issue") %>}{<%= escape_latex @invoice.place_of_issue %>}
   \boxentry{<%= bdgettext("invoice", "Date of issue") %>}{<%= format_date @invoice.date_of_issue %>}
   \boxentry{<%= bdgettext("invoice", "Date of sale") %>}{<%= format_date @invoice.date_of_sale %>}
 \end{minipage}
@@ -118,15 +118,18 @@
 
 \begin{center}
 \begin{minipage}{\textwidth}
-<%= if @invoice.account_no do %>
   \begin{minipage}[t]{0.45\textwidth}
     \textbf{<%= bdgettext("invoice", "Payment method") %>}\\[2pt]
     <%= bdgettext("payment_method", @invoice.payment_method, %{}, "/", false) %>\\
 
+  <%= if @seller.account_no do %>
     \textbf{<%= bdgettext("invoice", "Account number") %>}\\[2pt]
-    <%= format_plain_as_latex(@invoice.account_no) %>
+    <%= format_plain_as_latex(@seller.account_no) %>%
+  <% end %>%
+  <%= if @seller.bic_code do %>
+    BIC: <%= escape_latex @seller.bic_code %>
+  <% end %>
   \end{minipage}%
-<% end %>%
 \hfill\begin{minipage}[t]{0.45\textwidth}
   {\bfseries <%= bdgettext("invoice", "To pay") %>\hfill{}<%= format_price Calculator.total_gross_price(@invoice) %> <%= @invoice.currency %>}
 \end{minipage}

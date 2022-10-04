@@ -59,7 +59,9 @@ defmodule Invoicer.MixProject do
       {:cors_plug, "~> 3.0"},
       {:graphql_tools, github: "moroz/graphql_tools"},
       # {:graphql_tools, path: "../graphql_tools"},
-      {:scrivener_ecto, "~> 2.7"}
+      {:scrivener_ecto, "~> 2.7"},
+      {:appsignal, "~> 2.0"},
+      {:appsignal_phoenix, "~> 2.0"}
     ]
   end
 
