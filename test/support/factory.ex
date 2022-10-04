@@ -70,4 +70,8 @@ defmodule Invoicer.Factory do
       invoice_type: "Invoice"
     }
   end
+
+  def with_line_items(invoice) do
+    %{invoice | line_items: build_list(2, :line_item, invoice: nil)}
+  end
 end

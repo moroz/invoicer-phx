@@ -24,6 +24,7 @@ defmodule Invoicer.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Invoicer.DataCase
+      import Invoicer.Factory
     end
   end
 
