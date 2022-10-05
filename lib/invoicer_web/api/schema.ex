@@ -30,7 +30,7 @@ defmodule InvoicerWeb.Api.Schema do
     middleware
   end
 
-  @public_mutations [:sign_in, :sign_out]
+  @public_mutations [:sign_in, :sign_out, :sign_up]
   def middleware(middleware, %{identifier: id}, %{identifier: :mutation})
       when id in @public_mutations do
     middleware

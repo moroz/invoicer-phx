@@ -28,11 +28,10 @@ defmodule InvoicerWeb.Api.UserTypes do
     mutation_result_fields(:user)
   end
 
-  input_object :create_user_params do
+  input_object :sign_up_params do
     field :email, non_null(:string)
     field :password, non_null(:string)
     field :password_confirmation, non_null(:string)
-    field :role, non_null(:role), default_value: :regular
   end
 
   object :user_mutations do
@@ -45,6 +44,12 @@ defmodule InvoicerWeb.Api.UserTypes do
     @desc "Signs user out, removing all user data from the session."
     field :sign_out, non_null(:boolean) do
       middleware(InvoicerWeb.Api.Middleware.SignOut)
+    end
+
+    field :sign_up, non_null(:user_mutation_result) do
+      arg(:params, non_null(:sign_up_params))
+      resolve(&UserResolvers.sign_up/2)
+      middleware(InvoicerWeb.Api.Middleware.TransformErrors)
     end
   end
 end

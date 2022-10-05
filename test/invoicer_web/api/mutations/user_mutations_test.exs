@@ -61,4 +61,29 @@ defmodule InvoicerWeb.Api.UserMutationsTest do
       assert get_session(conn) == %{}
     end
   end
+
+  @mutation """
+  mutation SignUp($params: SignUpParams!) {
+    result: signUp(params: $params) {
+      success
+      errors {
+        key
+        message
+      }
+      data {
+        id
+        email
+      }
+    }
+  }
+  """
+  describe "signUp mutation" do
+    test "creates a new user with valid params" do
+      params = %{email: "user@example.com", password: "foobar", password_confirmation: "foobar"}
+      vars = ~m{params}
+
+      %{data: %{"result" => %{"success" => true, "errors" => [], "data" => user}}} =
+        mutate(@mutation, vars)
+    end
+  end
 end
