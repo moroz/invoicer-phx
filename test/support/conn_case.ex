@@ -23,6 +23,8 @@ defmodule InvoicerWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import InvoicerWeb.ConnCase
+      import ShorterMaps
+      import Invoicer.Factory
 
       alias InvoicerWeb.Router.Helpers, as: Routes
 
