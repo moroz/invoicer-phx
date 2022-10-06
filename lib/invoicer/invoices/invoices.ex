@@ -17,6 +17,12 @@ defmodule Invoicer.Invoices do
     |> Repo.insert()
   end
 
+  def update_invoice(%Invoice{} = invoice, attrs) do
+    invoice
+    |> Invoice.changeset(attrs)
+    |> Repo.update()
+  end
+
   def create_user_invoice(%User{} = user, attrs) do
     %Invoice{user_id: user.id}
     |> Invoice.changeset(attrs)

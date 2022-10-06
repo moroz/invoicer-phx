@@ -129,5 +129,11 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
       arg(:params, non_null(:invoice_params))
       resolve(&InvoiceResolvers.create_invoice/2)
     end
+
+    field :update_invoice, non_null(:invoice_mutation_result) do
+      arg(:id, non_null(:id))
+      arg(:params, non_null(:invoice_params))
+      resolve(&InvoiceResolvers.update_invoice/2)
+    end
   end
 end

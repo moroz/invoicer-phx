@@ -17,8 +17,8 @@ defmodule Invoicer.Invoices.Invoice do
     field :locale, {:array, Invoicer.Invoices.Locale}
     field :payment_method, Invoicer.Invoices.PaymentMethod
     field :invoice_type, Invoicer.Invoices.InvoiceType
-    belongs_to :seller, Client
-    belongs_to :buyer, Client
+    belongs_to :seller, Client, on_replace: :nilify
+    belongs_to :buyer, Client, on_replace: :nilify
     belongs_to :user, Invoicer.Users.User
     has_many :line_items, LineItem, on_replace: :delete
 
@@ -68,6 +68,7 @@ defmodule Invoicer.Invoices.Invoice do
       items ->
         items =
           items
+          |> Enum.reject(fn changeset -> changeset.action == :replace end)
           |> Enum.with_index()
           |> Enum.map(fn {item, index} ->
             case get_field(item, :position) do
@@ -79,7 +80,7 @@ defmodule Invoicer.Invoices.Invoice do
             end
           end)
 
-        put_change(changeset, :line_items, items)
+        put_assoc(changeset, :line_items, items)
     end
   end
 
@@ -91,6 +92,7 @@ defmodule Invoicer.Invoices.Invoice do
         changeset
 
       items ->
+        items = Enum.reject(items, fn changeset -> changeset.action == :replace end)
         net_total = Calculator.total_net_price(items)
         gross_total = Calculator.total_gross_price(items)
 
