@@ -5,24 +5,58 @@ defmodule InvoicerWeb.Api.InvoiceQueriesTest do
     [user: insert(:user)]
   end
 
+  @details """
+  fragment LineItemDetails on LineItem {
+    id
+    description
+    unitNetPrice
+    unit
+    vatRate
+    quantity
+  }
+
+  fragment ClientDetails on Client {
+    id
+    name
+    vatId
+    addressLine
+    city
+    postalCode
+    insertedAt
+    updatedAt
+  }
+
+  fragment InvoiceDetails on Invoice {
+    id
+    invoiceNo
+    currency
+    dateOfSale
+    dateOfIssue
+    placeOfIssue
+    invoiceType
+    locale
+    buyer {
+      ...ClientDetails
+    }
+    seller {
+      ...ClientDetails
+      accountNo
+      bicCode
+      bankName
+    }
+    lineItems {
+      ...LineItemDetails
+    }
+  }
+
+  """
+
   @query """
+  #{@details}
+
   query GetInvoice($id: ID!) {
     invoice(id: $id) {
-      id
-      invoiceNo
-      dateOfIssue
-      dateOfSale
-      grossTotal
-      placeOfIssue
-      currency
-      accountNo
-      locale
-      seller {
-        id
-      }
-      buyer {
-        id
-      }
+      ...InvoiceDetails
     }
   }
   """
