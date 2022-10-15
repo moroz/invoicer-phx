@@ -13,8 +13,11 @@ defmodule Invoicer.Invoices.BankRate do
     field :mid, :decimal
   end
 
+  @required ~w(no effective_date mid)a
+
   def changeset(record, attrs) do
     record
-    |> cast(attrs, [:no, :effective_date, :mid])
+    |> cast(attrs, @required)
+    |> validate_required(@required)
   end
 end

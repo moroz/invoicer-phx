@@ -5,6 +5,7 @@ defmodule Invoicer.Invoices.Invoice do
   alias Invoicer.Clients.Client
   alias Invoicer.LineItems.LineItem
   alias Invoicer.Invoices.Calculator
+  alias Invoicer.Invoices.BankRate
 
   schema "invoices" do
     field :date_of_issue, :date
@@ -17,6 +18,8 @@ defmodule Invoicer.Invoices.Invoice do
     field :locale, {:array, Invoicer.Invoices.Locale}
     field :payment_method, Invoicer.Invoices.PaymentMethod
     field :invoice_type, Invoicer.Invoices.InvoiceType
+    field :calculate_exchange_rate, :boolean, default: false
+    embeds_one :bank_rate, BankRate
     belongs_to :seller, Client, on_replace: :nilify
     belongs_to :buyer, Client, on_replace: :nilify
     belongs_to :user, Invoicer.Users.User
@@ -27,7 +30,7 @@ defmodule Invoicer.Invoices.Invoice do
 
   @required ~w(invoice_no date_of_issue date_of_sale place_of_issue gross_total
     currency user_id invoice_type payment_method)a
-  @cast @required ++ [:locale, :buyer_id, :seller_id]
+  @cast @required ++ [:locale, :buyer_id, :seller_id, :calculate_exchange_rate]
 
   @doc false
   def changeset(invoice, attrs) do
@@ -44,6 +47,7 @@ defmodule Invoicer.Invoices.Invoice do
     |> validate_user_matches(:seller_id)
     |> set_line_item_positions()
     |> set_totals()
+    |> cast_and_validate_exchange_rate()
   end
 
   defp set_user_id_on_client_params(%Ecto.Changeset{valid?: true} = changeset, field) do
@@ -123,4 +127,15 @@ defmodule Invoicer.Invoices.Invoice do
   end
 
   defp validate_user_matches(changeset, _field), do: changeset
+
+  defp cast_and_validate_exchange_rate(changeset) do
+    case get_field(changeset, :calculate_exchange_rate) do
+      true ->
+        changeset
+        |> cast_embed(:bank_rate, with: &BankRate.changeset/2, required: true)
+
+      _ ->
+        changeset
+    end
+  end
 end

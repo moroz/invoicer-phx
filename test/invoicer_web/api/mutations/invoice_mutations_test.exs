@@ -61,6 +61,34 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
       assert actual["netTotal"] == "2025.00"
     end
 
+    @bank_rate %{"no" => "199/A/NBP/2022", "effective_date" => "2022-10-13", "mid" => 0.6941}
+
+    test "creates an invoice with bank exchange rates", ~M{user} do
+      buyer = insert(:client, user: user)
+      seller = insert(:client, user: user)
+
+      params =
+        params_for(:invoice,
+          buyer_id: buyer.id,
+          seller_id: seller.id,
+          line_items: @line_items,
+          invoice_type: :invoice_rc
+        )
+        |> Map.drop([:gross_total, :net_total, :user_id])
+        |> Map.merge(%{
+          calculate_exchange_rate: true,
+          bank_rate: @bank_rate
+        })
+
+      vars = %{params: params}
+
+      %{"result" => %{"success" => true, "errors" => [], "data" => actual}} =
+        mutate_with_user(@mutation, user, vars)
+
+      assert actual["grossTotal"] == "2030.75"
+      assert actual["netTotal"] == "2025.00"
+    end
+
     test "does not create an invoice if the user does not own one of the parties", ~M{user} do
       buyer = insert(:client)
       seller = insert(:client, user: user)

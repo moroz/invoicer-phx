@@ -44,6 +44,18 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :vat_rate, non_null(:vat_rate)
   end
 
+  object :bank_rate do
+    field :no, :string
+    field :effective_date, :date
+    field :mid, :decimal
+  end
+
+  input_object :bank_rate_params do
+    field :no, :string
+    field :effective_date, :date
+    field :mid, :decimal
+  end
+
   object :invoice do
     field :id, non_null(:id)
     field :invoice_no, non_null(:string)
@@ -57,6 +69,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :locale, non_null(list_of(non_null(:locale)))
     field :invoice_type, non_null(:invoice_type)
     field :payment_method, non_null(:payment_method)
+    field :calculate_exchange_rate, non_null(:boolean)
+    field :bank_rate, :bank_rate
 
     field :seller_id, non_null(:id)
     field :buyer_id, non_null(:id)
@@ -93,6 +107,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :buyer, :client_params
     field :seller, :client_params
     field :line_items, list_of(non_null(:line_item_params))
+    field :calculate_exchange_rate, :boolean
+    field :bank_rate, :bank_rate_params
   end
 
   input_object :line_item_params do
