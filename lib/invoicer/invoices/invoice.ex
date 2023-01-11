@@ -44,8 +44,6 @@ defmodule Invoicer.Invoices.Invoice do
     |> validate_format(:currency, ~r/^[A-Z]{3}$/, message: "must be 3-letter code")
     |> cast_assoc(:line_items, with: &LineItem.changeset/2)
     |> cast_and_validate_exchange_rate()
-    |> validate_user_matches(:buyer_template_id)
-    |> validate_user_matches(:seller_template_id)
     |> copy_clients_from_templates()
     |> cast_clients_from_nested_params()
     |> set_line_item_positions()
@@ -155,26 +153,6 @@ defmodule Invoicer.Invoices.Invoice do
   end
 
   defp set_totals(changeset), do: changeset
-
-  defp validate_user_matches(%Ecto.Changeset{valid?: true} = changeset, field) do
-    user_id = get_field(changeset, :user_id)
-
-    case get_change(changeset, field) do
-      nil ->
-        changeset
-
-      id ->
-        case Clients.get_user_client(user_id, id) do
-          nil ->
-            add_error(changeset, field, "client does not exist")
-
-          %Client{} ->
-            changeset
-        end
-    end
-  end
-
-  defp validate_user_matches(changeset, _field), do: changeset
 
   defp cast_and_validate_exchange_rate(changeset) do
     case get_field(changeset, :calculate_exchange_rate) do

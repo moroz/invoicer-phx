@@ -93,13 +93,13 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
     @bank_rate %{"no" => "199/A/NBP/2022", "effective_date" => "2022-10-13", "mid" => 0.6941}
 
     test "creates an invoice with bank exchange rates", ~M{user} do
-      buyer = insert(:client, user: user)
-      seller = insert(:client, user: user)
+      buyer = insert(:client, user: user, template_type: :buyer)
+      seller = insert(:client, user: user, template_type: :seller)
 
       params =
         params_for(:invoice,
-          buyer_id: buyer.id,
-          seller_id: seller.id,
+          buyer_template_id: buyer.id,
+          seller_template_id: seller.id,
           line_items: @line_items,
           invoice_type: :invoice_rc
         )
@@ -119,13 +119,13 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
     end
 
     test "does not create an invoice if the user does not own one of the parties", ~M{user} do
-      buyer = insert(:client)
-      seller = insert(:client, user: user)
+      buyer = insert(:client, user: user, template_type: :buyer)
+      seller = insert(:client, template_type: :seller)
 
       params =
         params_for(:invoice,
-          buyer_id: buyer.id,
-          seller_id: seller.id,
+          buyer_template_id: buyer.id,
+          seller_template_id: seller.id,
           line_items: @line_items,
           invoice_type: :invoice_rc
         )

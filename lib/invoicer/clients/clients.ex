@@ -20,7 +20,7 @@ defmodule Invoicer.Clients do
     user
     |> Client.for_user()
     |> Client.templates()
-    |> Repo.get!(id)
+    |> Repo.get(id)
   end
 
   def create_client(attrs) do

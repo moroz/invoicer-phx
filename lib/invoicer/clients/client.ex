@@ -37,9 +37,8 @@ defmodule Invoicer.Clients.Client do
 
   def from_template(%__MODULE__{} = client) do
     client
-    |> Map.from_struct()
-    |> Map.merge(%{id: nil, template_type: nil, is_default_template: false})
-    |> Map.drop([:__meta__, :user])
+    |> Map.take(__schema__(:fields))
+    |> Map.delete(:id)
   end
 
   def templates(queryable \\ __MODULE__) do
