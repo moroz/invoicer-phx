@@ -48,14 +48,14 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
   ]
 
   describe "createInvoice mutation" do
-    test "creates an invoice with valid params", ~M{user} do
-      buyer = insert(:client, user: user)
-      seller = insert(:client, user: user)
+    test "creates an invoice with valid params with clients from templates", ~M{user} do
+      buyer = insert(:client, user: user, template_type: :buyer)
+      seller = insert(:client, user: user, template_type: :seller)
 
       params =
         params_for(:invoice,
-          buyer_id: buyer.id,
-          seller_id: seller.id,
+          buyer_template_id: buyer.id,
+          seller_template_id: seller.id,
           line_items: @line_items,
           invoice_type: :invoice_rc
         )

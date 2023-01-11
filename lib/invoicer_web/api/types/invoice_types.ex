@@ -102,8 +102,8 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :invoice_type, non_null(:invoice_type)
     field :payment_method, non_null(:payment_method)
     field :locale, non_null(list_of(non_null(:locale)))
-    field :buyer_id, :id
-    field :seller_id, :id
+    field :buyer_template_id, :id
+    field :seller_template_id, :id
     field :buyer, :client_params
     field :seller, :client_params
     field :line_items, list_of(non_null(:line_item_params))

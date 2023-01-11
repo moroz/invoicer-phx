@@ -16,6 +16,13 @@ defmodule Invoicer.Clients do
     |> Repo.get!(id)
   end
 
+  def get_user_client_template(user, id) do
+    user
+    |> Client.for_user()
+    |> Client.templates()
+    |> Repo.get!(id)
+  end
+
   def create_client(attrs) do
     %Client{}
     |> Client.changeset(attrs)

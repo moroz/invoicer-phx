@@ -4,6 +4,7 @@ defmodule Invoicer.Invoices do
   alias Invoicer.Invoices.Invoice
   alias Invoicer.LineItems.LineItem
   alias Invoicer.Users.User
+  alias Invoicer.Clients.Client
 
   def get_user_invoice(%User{} = user, invoice_id) do
     user
@@ -18,7 +19,18 @@ defmodule Invoicer.Invoices do
   end
 
   def delete_invoice(%Invoice{} = invoice) do
-    Repo.delete(invoice)
+    Repo.transaction(fn ->
+      Repo.delete!(invoice)
+      delete_invoice_clients(invoice)
+      invoice
+    end)
+  end
+
+  defp delete_invoice_clients(invoice) do
+    Client
+    |> where([c], is_nil(c.template_type))
+    |> where([c], c.id in ^[invoice.buyer_id, invoice.seller_id])
+    |> Repo.delete_all()
   end
 
   def update_invoice(%Invoice{} = invoice, attrs) do

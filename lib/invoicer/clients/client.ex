@@ -35,8 +35,15 @@ defmodule Invoicer.Clients.Client do
     |> validate_required(@required)
   end
 
+  def from_template(%__MODULE__{} = client) do
+    client
+    |> Map.from_struct()
+    |> Map.merge(%{id: nil, template_type: nil, is_default_template: false})
+    |> Map.drop([:__meta__, :user])
+  end
+
   def templates(queryable \\ __MODULE__) do
-    where(queryable, [c], c.is_template == ^true)
+    where(queryable, [c], not is_nil(c.template_type))
   end
 
   def for_user(queryable \\ __MODULE__, user)
