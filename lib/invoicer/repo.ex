@@ -4,4 +4,8 @@ defmodule Invoicer.Repo do
     adapter: Ecto.Adapters.Postgres
 
   use Scrivener, page_size: 20
+
+  def count(queryable) do
+    aggregate(queryable, :count)
+  end
 end

@@ -1,6 +1,8 @@
 defmodule InvoicerWeb.Api.InvoiceMutations do
   use InvoicerWeb.GraphQLCase
 
+  alias Invoicer.Clients.Client
+
   setup do
     [user: insert(:user)]
   end
@@ -59,6 +61,26 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
       assert actual["grossTotal"] == "2030.75"
       assert actual["netTotal"] == "2025.00"
+    end
+
+    test "creates an invoice with nested params for clients", ~M{user} do
+      assert Repo.count(Client) == 0
+
+      buyer_params = params_for(:client)
+      seller_params = params_for(:client)
+
+      params =
+        params_for(:invoice, line_items: @line_items, invoice_type: :invoice_rc)
+        |> Map.drop([:gross_total, :net_total, :user_id])
+        |> Map.put(:buyer, buyer_params)
+        |> Map.put(:seller, seller_params)
+
+      vars = %{params: params}
+
+      %{"result" => %{"success" => true, "errors" => [], "data" => actual}} =
+        mutate_with_user(@mutation, user, vars)
+
+      assert Repo.count(Client) == 2
     end
 
     @bank_rate %{"no" => "199/A/NBP/2022", "effective_date" => "2022-10-13", "mid" => 0.6941}
