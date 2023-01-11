@@ -11,18 +11,19 @@ defmodule Invoicer.Repo.Migrations.AddTemplateNameToClients do
       add :is_default_template, :boolean, null: false, default: false
     end
 
-    create unique_index(:clients, [:user_id, :template_type, :is_default_template],
-             where: "is_default_template = true"
-           )
+    create unique_index(:clients, [:user_id, :template_type], where: "is_default_template = true")
 
     execute """
     create or replace function unset_default_templates()
     returns trigger
     language plpgsql as $$
       begin
-        update clients
+        update clients c
         set is_default_template = false
-        where user_id = new.user_id and template_type = new.template_type;
+        where c.user_id = new.user_id and c.template_type = new.template_type
+          and c.is_default_template = true;
+
+        return new;
       end;
     $$;
     """

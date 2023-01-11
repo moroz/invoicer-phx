@@ -10,6 +10,7 @@ defmodule Invoicer.Users.User do
     field :password_confirmation, :string, virtual: true
 
     has_many :invoices, Invoicer.Invoices.Invoice
+    has_many :clients, Invoicer.Clients.Client
 
     timestamps()
   end

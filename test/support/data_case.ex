@@ -25,6 +25,7 @@ defmodule Invoicer.DataCase do
       import Ecto.Query
       import Invoicer.DataCase
       import Invoicer.Factory
+      import ShorterMaps
     end
   end
 
