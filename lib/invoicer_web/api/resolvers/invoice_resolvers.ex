@@ -6,6 +6,11 @@ defmodule InvoicerWeb.Api.InvoiceResolvers do
     {:ok, Invoices.get_user_invoice(user, id)}
   end
 
+  def delete_invoice(~M{id}, %{context: %{current_user: user}}) do
+    invoice = Invoices.get_user_invoice(user, id)
+    Invoices.delete_invoice(invoice)
+  end
+
   def update_invoice(~M{id, params}, %{context: %{current_user: user}}) do
     invoice = Invoices.get_user_invoice(user, id)
     Invoices.update_invoice(invoice, params)

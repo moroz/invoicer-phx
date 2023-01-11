@@ -146,6 +146,11 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
       resolve(&InvoiceResolvers.create_invoice/2)
     end
 
+    field :delete_invoice, non_null(:invoice_mutation_result) do
+      arg(:id, non_null(:id))
+      resolve(&InvoiceResolvers.delete_invoice/2)
+    end
+
     field :update_invoice, non_null(:invoice_mutation_result) do
       arg(:id, non_null(:id))
       arg(:params, non_null(:invoice_params))

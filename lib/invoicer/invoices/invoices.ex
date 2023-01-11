@@ -17,6 +17,10 @@ defmodule Invoicer.Invoices do
     |> Repo.insert()
   end
 
+  def delete_invoice(%Invoice{} = invoice) do
+    Repo.delete(invoice)
+  end
+
   def update_invoice(%Invoice{} = invoice, attrs) do
     invoice
     |> Invoice.changeset(attrs)
