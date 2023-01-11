@@ -2,7 +2,10 @@ defmodule Invoicer.Clients.Client do
   use Invoicer.Schema
   import Ecto.Changeset
   import Ecto.Query
+  import EctoEnum
   alias Invoicer.Users.User
+
+  defenum(TemplateType, :client_template_type, [:buyer, :seller])
 
   schema "clients" do
     field :address_line, :string
@@ -13,6 +16,8 @@ defmodule Invoicer.Clients.Client do
     field :bank_name, :string
     field :bic_code, :string
     field :account_no, :string
+    field :template_type, TemplateType
+    field :is_default_template, :boolean
     belongs_to :user, Invoicer.Users.User
 
     timestamps()
@@ -20,13 +25,18 @@ defmodule Invoicer.Clients.Client do
 
   @required ~w(name)a
   @cast @required ++
-          ~w(account_no bic_code bank_name user_id address_line postal_code vat_id city)a
+          ~w(account_no bic_code bank_name user_id address_line
+             postal_code vat_id city template_type is_default_template)a
 
   @doc false
   def changeset(client, attrs) do
     client
     |> cast(attrs, @cast)
     |> validate_required(@required)
+  end
+
+  def templates(queryable \\ __MODULE__) do
+    where(queryable, [c], c.is_template == ^true)
   end
 
   def for_user(queryable \\ __MODULE__, user)

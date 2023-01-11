@@ -37,6 +37,7 @@ defmodule Invoicer.Clients do
   def filter_and_paginate_clients(%User{} = user, params) when is_map(params) do
     user
     |> Client.for_user()
+    |> Client.templates()
     |> filter_by_params(params)
     |> Repo.paginate(params)
   end

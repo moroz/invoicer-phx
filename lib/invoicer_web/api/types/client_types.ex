@@ -3,6 +3,11 @@ defmodule InvoicerWeb.Api.ClientTypes do
   import GraphQLTools.SchemaHelpers
   alias InvoicerWeb.Api.ClientResolvers
 
+  enum :client_template_type do
+    value(:buyer)
+    value(:seller)
+  end
+
   object :client do
     field :id, non_null(:id)
     field :address_line, :string
@@ -13,6 +18,8 @@ defmodule InvoicerWeb.Api.ClientTypes do
     field :bank_name, :string
     field :bic_code, :string
     field :account_no, :string
+    field :template_type, :client_template_type
+    field :is_default_template, non_null(:boolean)
 
     timestamps()
   end
@@ -26,6 +33,8 @@ defmodule InvoicerWeb.Api.ClientTypes do
     field :bank_name, :string
     field :bic_code, :string
     field :account_no, :string
+    field :template_type, :client_template_type
+    field :is_default_template, :boolean
   end
 
   object :client_page do
