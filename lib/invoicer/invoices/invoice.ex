@@ -20,8 +20,8 @@ defmodule Invoicer.Invoices.Invoice do
     field :invoice_type, Invoicer.Invoices.InvoiceType
     field :calculate_exchange_rate, :boolean, default: false
     embeds_one :bank_rate, BankRate
-    belongs_to :seller, Client, on_replace: :nilify
-    belongs_to :buyer, Client, on_replace: :nilify
+    belongs_to :seller, Client, on_replace: :update
+    belongs_to :buyer, Client, on_replace: :update
     belongs_to :user, Invoicer.Users.User
     has_many :line_items, LineItem, on_replace: :delete
 
