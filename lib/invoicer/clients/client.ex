@@ -38,7 +38,7 @@ defmodule Invoicer.Clients.Client do
   def from_template(%__MODULE__{} = client) do
     client
     |> Map.take(__schema__(:fields))
-    |> Map.delete(:id)
+    |> Map.drop([:id, :template_type, :is_default_template])
   end
 
   def templates(queryable \\ __MODULE__) do

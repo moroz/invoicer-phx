@@ -41,7 +41,8 @@ Repo.transaction(fn ->
       postal_code: "12345",
       vat_id: "PL123456789",
       address_line: "42 Infinity Drive",
-      user_id: user.id
+      user_id: user.id,
+      template_type: :buyer
     })
 
   {:ok, seller} =
@@ -51,6 +52,7 @@ Repo.transaction(fn ->
       postal_code: "00-819",
       vat_id: "JP123456789",
       address_line: "42 Sun Yat-sen Rd.",
+      template_type: :seller,
       user_id: user.id
     })
 
@@ -69,8 +71,8 @@ Repo.transaction(fn ->
   {:ok, invoice} =
     Invoices.create_invoice(%{
       user_id: user.id,
-      buyer_id: buyer.id,
-      seller_id: seller.id,
+      buyer_template_id: buyer.id,
+      seller_template_id: seller.id,
       invoice_no: invoice_no,
       date_of_sale: date,
       date_of_issue: date,

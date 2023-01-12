@@ -138,6 +138,27 @@ defmodule InvoicerWeb.Api.InvoiceMutations do
 
       assert error["message"] =~ ~r/does not exist/i
     end
+
+    test "does not create an invoice if one of the parties is not a template", ~M{user} do
+      buyer = insert(:client, user: user, template_type: :buyer)
+      seller = insert(:client, user: user)
+
+      params =
+        params_for(:invoice,
+          buyer_template_id: buyer.id,
+          seller_template_id: seller.id,
+          line_items: @line_items,
+          invoice_type: :invoice_rc
+        )
+        |> Map.drop([:gross_total, :net_total, :user_id])
+
+      vars = %{params: params}
+
+      %{"result" => %{"success" => false, "errors" => [error], "data" => nil}} =
+        mutate_with_user(@mutation, user, vars)
+
+      assert error["message"] =~ ~r/does not exist/i
+    end
   end
 
   @mutation """

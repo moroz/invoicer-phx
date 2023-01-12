@@ -84,6 +84,8 @@ defmodule InvoicerWeb.Api.UserMutationsTest do
 
       %{data: %{"result" => %{"success" => true, "errors" => [], "data" => user}}} =
         mutate(@mutation, vars)
+
+      assert user["email"] == params.email
     end
   end
 end
