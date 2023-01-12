@@ -58,5 +58,9 @@ defmodule Invoicer.Clients do
     where(q, [c], ilike(c.name, ^ilike_clause))
   end
 
+  defp do_filter_by_params({:template_type, type}, q) do
+    where(q, [c], c.template_type == ^type)
+  end
+
   defp do_filter_by_params(_, q), do: q
 end

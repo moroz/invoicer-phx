@@ -47,6 +47,7 @@ defmodule InvoicerWeb.Api.ClientTypes do
 
   input_object :client_filter_params do
     standard_pagination_params()
+    field :template_type, :client_template_type
   end
 
   object :client_queries do
