@@ -3,6 +3,16 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - ELIXIR_VERSION=1.14.0
+      - OTP_VERSION=25.1
+      - DEBIAN_VERSION=bullseye-20220801-slim
+      - echo Logging in to Dockerhub and pulling builder images...
+      - ELIXIR_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+      - RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+      - echo Logging in to Dockerhub...
+      - echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+      - docker pull $ELIXIR_IMAGE
+      - docker pull $RUNNER_IMAGE
       - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
