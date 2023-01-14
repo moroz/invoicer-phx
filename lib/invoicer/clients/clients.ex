@@ -37,7 +37,7 @@ defmodule Invoicer.Clients do
 
   def create_user_client(%User{} = user, attrs) do
     %Client{user_id: user.id}
-    |> Client.changeset(attrs)
+    |> Client.template_changeset(attrs)
     |> Repo.insert()
   end
 

@@ -19,6 +19,7 @@ defmodule InvoicerWeb.Api.ClientMutationsTest do
         vatId
         name
         addressLine
+        templateType
       }
     }
   }
@@ -26,7 +27,7 @@ defmodule InvoicerWeb.Api.ClientMutationsTest do
 
   describe "createClient mutation" do
     test "creates client with valid params", ~M{user} do
-      params = params_for(:client) |> Map.drop([:user])
+      params = params_for(:client, template_type: :buyer) |> Map.drop([:user])
 
       vars = %{params: params}
 
@@ -36,6 +37,7 @@ defmodule InvoicerWeb.Api.ClientMutationsTest do
       assert actual["name"] == params.name
       assert actual["vatId"] == params.vat_id
       assert actual["addressLine"] == params.address_line
+      assert actual["templateType"] == "BUYER"
     end
   end
 

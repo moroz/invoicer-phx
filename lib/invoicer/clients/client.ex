@@ -35,6 +35,12 @@ defmodule Invoicer.Clients.Client do
     |> validate_required(@required)
   end
 
+  def template_changeset(client, attrs) do
+    client
+    |> cast(attrs, @cast)
+    |> validate_required(~w(name template_type)a)
+  end
+
   def from_template(%__MODULE__{} = client) do
     client
     |> Map.take(__schema__(:fields))
