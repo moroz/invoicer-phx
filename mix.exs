@@ -62,7 +62,8 @@ defmodule Invoicer.MixProject do
       {:scrivener_ecto, "~> 2.7"},
       {:appsignal, "~> 2.0"},
       {:appsignal_phoenix, "~> 2.0"},
-      {:mock, "~> 0.3.7"}
+      {:mock, "~> 0.3.7"},
+      {:uniq, "~> 0.5"}
     ]
   end
 
