@@ -136,5 +136,10 @@
 \end{minipage}
 \end{center}
 
+<%= if @invoice.memo not in ["", nil] do %>%
+  \setlength{\parindent}{0pt}\textbf{<%= bdgettext("invoice", "Memo") %>}\\[2pt]%
+  <%= format_plain_as_latex(@invoice.memo) %>
+<% end %>
+
 \end{document}
 

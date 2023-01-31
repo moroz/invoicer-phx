@@ -36,7 +36,7 @@ msgstr "Käufer"
 msgid "Seller"
 msgstr "Verkäufer"
 
-#: lib/invoicer_web/templates/invoice/_company.tex.eex:7
+#: lib/invoicer_web/templates/invoice/_client.tex.eex:7
 #, elixir-autogen, elixir-format
 msgid "VAT ID"
 msgstr "VAT ID"
@@ -96,7 +96,7 @@ msgstr "Darin"
 msgid "Total"
 msgstr "Gesamt"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:131
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:134
 #, elixir-autogen, elixir-format
 msgid "To pay"
 msgstr "Zu zahlender Betrag"
@@ -111,7 +111,12 @@ msgstr "Kontonummer"
 msgid "Reverse charge"
 msgstr "Reverse-Charge"
 
-#: lib/invoicer_web/templates/invoice/invoice.tex.eex:123
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:122
 #, elixir-autogen, elixir-format
 msgid "Payment method"
 msgstr "Zahlungsweise"
+
+#: lib/invoicer_web/templates/invoice/invoice.tex.eex:140
+#, elixir-autogen, elixir-format
+msgid "Memo"
+msgstr "Bemerkungen"

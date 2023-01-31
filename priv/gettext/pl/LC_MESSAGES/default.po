@@ -11,11 +11,6 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3\n"
 
-#: lib/invoicer_web/templates/page/index.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "Welcome to %{name}!"
-msgstr ""
-
 #: lib/invoicer_web/templates/invoice/invoice.tex.eex:41
 #: lib/invoicer_web/templates/invoice/invoice.tex.eex:42
 #, elixir-autogen, elixir-format
