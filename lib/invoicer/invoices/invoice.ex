@@ -19,6 +19,7 @@ defmodule Invoicer.Invoices.Invoice do
     field :payment_method, Invoicer.Invoices.PaymentMethod
     field :invoice_type, Invoicer.Invoices.InvoiceType
     field :calculate_exchange_rate, :boolean, default: false
+    field :memo, :string
     embeds_one :bank_rate, BankRate
     belongs_to :seller, Client, on_replace: :update
     belongs_to :buyer, Client, on_replace: :update
@@ -34,7 +35,7 @@ defmodule Invoicer.Invoices.Invoice do
   @required ~w(invoice_no date_of_issue date_of_sale place_of_issue
     currency user_id invoice_type payment_method)a
   @cast @required ++ ~w[locale buyer_id seller_id calculate_exchange_rate
-                        seller_template_id buyer_template_id]a
+                        seller_template_id buyer_template_id memo]a
 
   @doc false
   def changeset(invoice, attrs) do

@@ -71,6 +71,7 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :payment_method, non_null(:payment_method)
     field :calculate_exchange_rate, non_null(:boolean)
     field :bank_rate, :bank_rate
+    field :memo, :string
 
     field :seller_id, non_null(:id)
     field :buyer_id, non_null(:id)
@@ -109,6 +110,7 @@ defmodule InvoicerWeb.Api.InvoiceTypes do
     field :line_items, list_of(non_null(:line_item_params))
     field :calculate_exchange_rate, :boolean
     field :bank_rate, :bank_rate_params
+    field :memo, :string
   end
 
   input_object :line_item_params do
